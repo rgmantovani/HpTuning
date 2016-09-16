@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+
+data/
+misc/
+output/
+
+*.log
+*.txt
