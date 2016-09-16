@@ -7,10 +7,10 @@
   
   algo     = "classif.J48"
   # algo     = "classif.svm"
-
   # tuning   = "mbo"
-  tuning   = "random"
+  # tuning   = "random"
   # tuning   = "defaults"
+  tuning = "irace"
 
   rep      = 4
 
@@ -40,19 +40,19 @@
   learner = getLearner(algo = algo)
 
   if(tuning == "defaults") {
-    # Running defaults 
     new.lrn = learner
   } else {
 
     par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task))
-    BUDGET  = 10
+    BUDGET  = 20
 
     if(tuning == "random") {
       ctrl = makeTuneControlRandom(maxit = BUDGET)
     } else if(tuning == "mbo") {
       ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)
+    } else if(tuning == "irace") {
+      ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)
     }
-
     # New wrapper tuned learner 
     new.lrn = makeTuneWrapper(learner = learner, resampling = inner.cv,
       measure = acc, par.set = par.set, control = ctrl, show.info = TRUE)

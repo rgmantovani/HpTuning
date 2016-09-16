@@ -4,8 +4,8 @@
 checkArgs = function(datafile, algo, tuning, rep) {
 
   # Checking valid tuning parameter
-  if(tuning %nin% c("random", "defaults", "mbo", "pso")) {
-    stopf(" * Please, choose one of the following tune options: random, mbo, pso or defaults")
+  if(tuning %nin% c("random", "defaults", "mbo", "irace")) {
+    stopf(" * Please, choose one of the following tune options: random, mbo, irace or defaults")
   }
 
   # datafile must be a file in data/run folder

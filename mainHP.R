@@ -40,6 +40,8 @@ mainMetaLevel = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL
       ctrl = makeTuneControlRandom(maxit = BUDGET)
     } else if(tuning == "mbo") {
       ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)
+    } else if(tuning == "irace") {
+      ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 4, minNbSurvival = 4)
     }
 
     # New wrapper tuned learner 

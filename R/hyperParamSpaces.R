@@ -6,9 +6,11 @@ getJ48Space = function(...) {
   par.set = makeParamSet(
     makeLogicalParam(id = "O", default = FALSE),
     makeLogicalParam(id = "R", default = FALSE),
-    makeNumericParam(id = "C", default = 0.25, lower = 0.001, upper = 0.5, requires = quote(R == FALSE)),
+    makeNumericParam(id = "C", default = 0.25, lower = 0.001, upper = 0.5, 
+      requires = quote(R == FALSE)),
     makeIntegerParam(id = "M", default = 2L, lower = 1L, upper = 50L),
-    makeIntegerParam(id = "N", default = 3L, lower = 2L, upper = 10, requires = quote(R == TRUE)),
+    makeIntegerParam(id = "N", default = 3L, lower = 2L, upper = 10, 
+      requires = quote(R == TRUE)),
     makeLogicalParam(id = "B", default = FALSE),
     makeLogicalParam(id = "S", default = FALSE),
     makeLogicalParam(id = "A", default = FALSE),
@@ -45,8 +47,8 @@ getKknnSpace = function(...) {
 getSvmSpace = function(...) {
   par.set = makeParamSet(
     makeDiscreteParam("kernel", values = "radial", default = "radial", tunable = FALSE),
-    makeNumericParam("cost" , lower = -12, upper = 12, trafo = function(x) 2^x),
-    makeNumericParam("gamma", lower = -12, upper = 12, trafo = function(x) 2^x)
+    makeNumericParam("cost" , lower = -15, upper = 15, trafo = function(x) 2^x),
+    makeNumericParam("gamma", lower = -15, upper = 15, trafo = function(x) 2^x)
   )
   return(par.set)
 }
