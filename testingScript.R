@@ -2,15 +2,22 @@
 #--------------------------------------------------------------------------------------------------
 
   devtools::load_all()
+
   datafile = "iris.arff"
+  
   algo     = "classif.J48"
+  # algo     = "classif.svm"
+
+  # tuning   = "mbo"
   tuning   = "random"
-  rep      = 1
+  # tuning   = "defaults"
+
+  rep      = 4
 
   checkArgs(datafile = datafile, algo = algo, tuning = tuning, rep = rep)
 
-  base.name = gsub(x = datafile, pattern = "_space.RData", replacement = "")
-  output.dir = paste0("output/", base.name, "/", algo, "/", tuning)
+  base.name = gsub(x = datafile, pattern = ".arff", replacement = "")
+  output.dir = paste0("output/", base.name, "/", algo, "/", tuning, "/rep", rep)
 
   if(!dir.exists(output.dir)) {
     dir.create(path = output.dir, recursive = TRUE)
@@ -26,8 +33,8 @@
     target = "Class",
   )
 
-  outer.cv = makeResampleDesc(method = "CV", iter = OUTER_FOLDS)
-  inner.cv = makeResampleDesc(method = "CV", iter = INNER_FOLDS)
+  outer.cv = makeResampleDesc(method = "CV", iter = 2)
+  inner.cv = makeResampleDesc(method = "CV", iter = 3)
 
   measures = list(ber, acc, timetrain, timepredict)
   learner = getLearner(algo = algo)
@@ -38,6 +45,7 @@
   } else {
 
     par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task))
+    BUDGET  = 10
 
     if(tuning == "random") {
       ctrl = makeTuneControlRandom(maxit = BUDGET)

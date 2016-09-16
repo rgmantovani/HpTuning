@@ -4,15 +4,15 @@
 getJ48Space = function(...) {
   args = list(...)
   par.set = makeParamSet(
-    makeLogicalLearnerParam(id = "O", default = FALSE),
-    makeLogicalLearnerParam(id = "R", default = FALSE),
-    makeNumericLearnerParam(id = "C", default = 0.25, lower = 0.001, upper = 0.5, requires = quote(R == FALSE)),
-    makeIntegerLearnerParam(id = "M", default = 2L, lower = 1L, upper = 50L),
-    makeIntegerLearnerParam(id = "N", default = 3L, lower = 2L, upper = 10, requires = quote(R == TRUE)),
-    makeLogicalLearnerParam(id = "B", default = FALSE),
-    makeLogicalLearnerParam(id = "S", default = FALSE),
-    makeLogicalLearnerParam(id = "A", default = FALSE),
-    makeLogicalLearnerParam(id = "J", default = FALSE)
+    makeLogicalParam(id = "O", default = FALSE),
+    makeLogicalParam(id = "R", default = FALSE),
+    makeNumericParam(id = "C", default = 0.25, lower = 0.001, upper = 0.5, requires = quote(R == FALSE)),
+    makeIntegerParam(id = "M", default = 2L, lower = 1L, upper = 50L),
+    makeIntegerParam(id = "N", default = 3L, lower = 2L, upper = 10, requires = quote(R == TRUE)),
+    makeLogicalParam(id = "B", default = FALSE),
+    makeLogicalParam(id = "S", default = FALSE),
+    makeLogicalParam(id = "A", default = FALSE),
+    makeLogicalParam(id = "J", default = FALSE)
   )
   return(par.set)
 }
