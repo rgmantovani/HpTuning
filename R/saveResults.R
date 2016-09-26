@@ -3,7 +3,7 @@
 
 saveResults = function(res, task, output.dir, tuning = NULL) {
 
-  cat(" - Saving results ... ")
+  catf(" - Saving results ... ")
   
   ret.perf = getBMRPerformances(res, as.df = TRUE)
   save(ret.perf, file = paste0(output.dir, "/perf_", getTaskId(task), ".RData"))
@@ -17,8 +17,8 @@ saveResults = function(res, task, output.dir, tuning = NULL) {
     save(ret.params.list, file = paste0(output.dir, "/opt_params_", getTaskId(task), ".RData"))
   }
 
+  print(ret.perf)
   catf(" SAVED!")
-  return(ret.perf)
 }
 
 # -------------------------------------------------------------------------------------------------

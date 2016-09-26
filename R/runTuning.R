@@ -1,32 +1,7 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-  devtools::load_all()
-
-  datafile = "iris"
-  # datafile = "glass"
-  
-  algo     = "classif.J48"
-  # algo     = "classif.svm"
-  
-  # tuning   = "mbo"
-  tuning   = "random"
-  # tuning   = "defaults"
-  # tuning = "irace"
-  
-  rep      = 10
-
-  # Checking params values
-  assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
-  sub.data = gsub(x = list.files(path = "data/"), pattern = ".arff", replacement = "")
-  assertChoice(x = datafile, choices = sub.data, .var.name = "datafile")
-  assertChoice(x = algo, choices = c("classif.svm", "classif.J48"), .var.name = "algo")
-  assertInt(x = rep, lower = 1, upper = 30, .var.name = "rep")
-
-  catf(paste0(" - Datafile: \t", datafile))
-  catf(paste0(" - Algorithm: \t", algo))
-  catf(paste0(" - Tuning: \t", tuning))
-  catf(paste0(" - Repetition: \t", rep))
+runTuning = function(datafile, algo, tuning, rep) {
 
   output.dir = paste0("output/", datafile, "/", algo, "/", tuning, "/rep", rep)
 
@@ -35,9 +10,10 @@
     catf(paste0(" - Creating dir: ", output.dir))
   }
 
+  #check if the output already exists
   if(file.exists(paste0(output.dir, "/perf_", datafile, ".RData"))) {
      warningf("Job already finished!")
-  } else {
+  } else{
 
     catf(paste0(" @ Loading dataset: ", datafile))
     data = foreign::read.arff(paste0("data/", datafile, ".arff"))
@@ -48,8 +24,8 @@
       target = "Class",
     )
 
-    outer.cv = makeResampleDesc(method = "CV", iter = 2)
-    inner.cv = makeResampleDesc(method = "CV", iter = 3)
+    outer.cv = makeResampleDesc(method = "CV", iter = OUTER_FOLDS)
+    inner.cv = makeResampleDesc(method = "CV", iter = INNER_FOLDS)
 
     measures = list(ber, acc, timetrain, timepredict)
     learner = getLearner(algo = algo)
@@ -59,16 +35,17 @@
     } else {
 
       par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task))
-      BUDGET  = 10 #50
-
+      BUDGET  = TUNING_CONSTANT * length(par.set)
+     
       if(tuning == "random") {
         ctrl = makeTuneControlRandom(maxit = BUDGET)
       } else if(tuning == "mbo") {
         ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)
       } else if(tuning == "irace") {
-        ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)
+        ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 4, minNbSurvival = 4)
       }
-      # New wrapper tuned learner 
+
+      # New wrapper tuned learner
       new.lrn = makeTuneWrapper(learner = learner, resampling = inner.cv,
         measure = ber, par.set = par.set, control = ctrl, show.info = TRUE)
     }
@@ -77,9 +54,11 @@
     res = benchmark(learners = new.lrn, tasks = list(task), resamplings = outer.cv, 
       measures = measures, show.info = TRUE, models = FALSE)
 
-    # Saving results
     saveResults(res = res, task = task, output.dir = output.dir, tuning = tuning)
   }
+    
+
+}
 
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------

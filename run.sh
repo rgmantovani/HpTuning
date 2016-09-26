@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -a arr=("glass.arff") # "iris")
+declare -a arr=("glass") # "iris")
 # declare -a arr=("abalone-11class" "abalone-28class" "abalone-3class" "abalone-7class" "acute-inflammations-nephritis"
 	# "analcatdata_authorship" "analcatdata_boxing1" "analcatdata_boxing2" "analcatdata_creditscore" "analcatdata_dmft" 
 	# "analcatdata_germangss" "analcatdata_lawsuit" "appendicitis" "artificial-characters" "autoUniv-au1-1000" 
@@ -29,15 +29,15 @@ declare -a arr=("glass.arff") # "iris")
 	# "wine-quality-white" "wine" "wpbc" "yeast-4class" "yeast")
 
 algo="classif.J48" # classif.svm
-tuning="mbo" # random | mbo | defaults | irace
+tuning="random" #"random | mbo | defaults | irace
 
 #Iterates for each dataset
 for i in "${arr[@]}"
 do
-	#Iterate the number of executions
-	for j in $(seq 1 30);
-    do
-    	R CMD BATCH --no-save --no-restore '--args' --datafile="$i" --algo="$algo " --tuning="$tuning" \
-    	 --epoch="$j" mainHP.R out_"$i"_"$algo"_"$tuning"_rep_"$j".log &
-	done
+  #Iterate the number of executions
+  for j in $(seq 1 30);
+  do
+    R CMD BATCH --no-save --no-restore '--args' --datafile="$i" --algo="$algo " --tuning="$tuning" \
+       --epoch="$j" mainHP.R out_"$i"_"$algo"_"$tuning"_rep_"$j".log &
+  done
 done
