@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 
-misc/
+example/
 output/
 
 *.log

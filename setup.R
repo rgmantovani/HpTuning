@@ -3,7 +3,7 @@
 
 # install required packages
 
-install.packages(pkgs = c("devtools, RWeka", "e1071", "irace"))
+install.packages(pkgs = c("devtools, RWeka", "e1071", "irace", "checkmate"))
 
 library("devtools")
 

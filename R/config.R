@@ -3,6 +3,7 @@
 
 # loading packages
 library("foreign")
+library("checkmate")
 library("mlr")
 library("mlrMBO")
 
@@ -12,8 +13,8 @@ configureMlr(show.info = TRUE)
 
 # constants
 INNER_FOLDS = 3
-
 OUTER_FOLDS = 10 
+TUNING_CONSTANT = 100
 
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------

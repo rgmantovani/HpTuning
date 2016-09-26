@@ -4,7 +4,16 @@
 mainMetaLevel = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
 
   devtools::load_all()
-  checkArgs(datafile = datafile, algo = algo, tuning = tuning, rep = rep)
+
+  assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
+  assertChoice(x = datafile, choices = list.files(path = "data/"), .var.name = "datafile")
+  assertChoice(x = algo, choices = c("classif.svm", "classif.J48"), .var.name = "algo")
+  assertInt(x = rep, lower = 1, upper = 30, .var.name = "rep")
+
+  catf(paste0(" - Datafile: \t", datafile))
+  catf(paste0(" - Algorithm: \t", algo))
+  catf(paste0(" - Tuning: \t", tuning))
+  catf(paste0(" - Repetition: \t", rep))
 
   base.name = gsub(x = datafile, pattern = ".arff", replacement = "")
   output.dir = paste0("output/", base.name, "/", algo, "/", tuning, "/rep", rep)
@@ -34,7 +43,7 @@ mainMetaLevel = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL
   } else {
 
     par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task))
-    BUDGET  = 100 * length(par.set)
+    BUDGET  = TUNING_CONSTANT * length(par.set)
 
     if(tuning == "random") {
       ctrl = makeTuneControlRandom(maxit = BUDGET)

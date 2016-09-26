@@ -3,7 +3,10 @@
 
 getSMBOControl = function(par.set, budget) {
 
-  ctrl = makeMBOControl(impute.y.fun = function(x, y, opt.path) 0)
+  ctrl = makeMBOControl(
+    impute.y.fun = function(x, y, opt.path) { return(0) }
+  )
+
   ctrl = setMBOControlTermination(ctrl, iters = budget)
   ctrl = setMBOControlInfill(ctrl, crit = "ei", opt = "focussearch", opt.restarts = 2L,
     opt.focussearch.points = 500L)
