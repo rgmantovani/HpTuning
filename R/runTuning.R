@@ -35,7 +35,7 @@ runTuning = function(datafile, algo, tuning, rep) {
     } else {
 
       par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task))
-      BUDGET  = TUNING_CONSTANT * length(par.set)
+      BUDGET  = TUNING_CONSTANT * length(par.set$pars)
      
       if(tuning == "random") {
         ctrl = makeTuneControlRandom(maxit = BUDGET)
@@ -56,7 +56,6 @@ runTuning = function(datafile, algo, tuning, rep) {
 
     saveResults(res = res, task = task, output.dir = output.dir, tuning = tuning)
   }
-    
 
 }
 
