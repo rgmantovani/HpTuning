@@ -1,9 +1,11 @@
 Package: HpTuning
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Title: Hyper-parameter tuning of classification algorithms
+Version: 0.1
+Authors@R:person("Rafael", "Gomes Mantovani", email = "rgmantovani@gmail.com", role = c("aut", "cre"))
+Description: 'HPTuning' is a program that performs hyper-parameter tuning of different Machine Learning (ML) classification algorithms using 'mlr' and 'mlrMBO' packages.
 Depends: R (>= 3.3.0)
-License: What license is it under?
+License: LGPL-3
 Encoding: UTF-8
+URL: https://github.com/rgmantovani/HpTuning
+URLnote: https://github.com/rgmantovani/HpTuning
 LazyData: true

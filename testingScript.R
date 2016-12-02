@@ -15,7 +15,7 @@
   # tuning   = "defaults"
   # tuning = "irace"
   
-  rep      = 4#10
+  rep      = 7
 
   # Checking params values
   assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
@@ -65,13 +65,12 @@
       BUDGET  = 10 #50
       cat(paste0(" @ budget: ", BUDGET, "\n"))
 
-      if(tuning == "random") {
-        ctrl = makeTuneControlRandom(maxit = BUDGET)
-      } else if(tuning == "mbo") {
-        ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)
-      } else if(tuning == "irace") {
-        ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)
-      }
+      switch(tuning,
+        random = { ctrl = makeTuneControlRandom(maxit = BUDGET)},
+        mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)},
+        irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)}
+      )
+
       # New wrapper tuned learner 
       new.lrn = makeTuneWrapper(learner = learner, resampling = inner.cv,
         measure = ber, par.set = par.set, control = ctrl, show.info = TRUE)

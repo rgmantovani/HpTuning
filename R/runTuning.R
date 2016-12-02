@@ -39,13 +39,11 @@ runTuning = function(datafile, algo, tuning, rep) {
       BUDGET  = TUNING_CONSTANT * length(par.set$pars)
       cat(paste0(" @ budget: ", BUDGET, "\n"))
      
-      if(tuning == "random") {
-        ctrl = makeTuneControlRandom(maxit = BUDGET)
-      } else if(tuning == "mbo") {
-        ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)
-      } else if(tuning == "irace") {
-        ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 4, minNbSurvival = 4)
-      }
+      switch(tuning,
+        random = { ctrl = makeTuneControlRandom(maxit = BUDGET)},
+        mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)},
+        irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)}
+      )
 
       # New wrapper tuned learner
       new.lrn = makeTuneWrapper(learner = learner, resampling = inner.cv,
