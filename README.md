@@ -1,6 +1,6 @@
 # HpTuning
 
-'HPTuning' is a program that performs hyper-parameter tuning of different Machine Learning (ML) classification algorithms. It uses 'mlr' [1] package as structure, and 'mlrMBO' [2] to perform Sequential Model Based Optimzation [3].
+'HPTuning' is a program that performs hyper-parameter tuning of different Machine Learning (ML) classification algorithms. It uses 'mlr' [1] package as structure, and 'mlrMBO' [2] to perform Sequential Model Based Optimzation (SMBO) [3].
 
 ### Technical Requirements
 
@@ -9,7 +9,7 @@
 
 ### Setup
 
-To install all of the required R packages run the ```setup.R```file:
+To install all of the required R packages you can run the ```setup.R```file:
 
 * inside R: 
 ```R 
@@ -24,21 +24,17 @@ R CMD BATCH --no-save --no-restore setup.R &
 
 To run the project, please, call it by the bash file executing it by the command:
 ```
-./runRandomBot.sh &
-```
-```
  R CMD BATCH --no-save --no-restore '--args' --datafile=<datafile> --algo=<algo> --tuning=<tuning> \
     --epoch=<epoch> mainHP.R out_"$datafile"_"$algo"_"$tuning"_rep_"$epoch".log &
 ```
 
 It will start the execution saving the status in an output log file. You can follow the execution and errors checking directly this file. 
 
-The possible parameter values specified to execute it are:
+The available values for the execution parameters to this current version are:
 * datafile: any dataset filename available at the "data/" subdir;
-* algo: "classif.J48"- J48 Decision Tree algorithm, "classif.rpart" - CART trees and "classif.svn" - Support Vector Machines;
-* tuning: "defaults" - Defaults hyper-parameter values, "random" - Random Search, "mbo" - Sequential Model-Based Optimization and "irace" - Iterative Race;
-* epoch: id of the repetition (may be between 1 and 30).
-
+* algo: "classif.J48"- J48 Decision Tree algorithm [4], "classif.rpart" - CART trees [5] and "classif.svm" - Support Vector Machines [6];
+* tuning: "defaults" - Default hyper-parameter values, "random" - Random Search (RS) method, "mbo" - Sequential Model-Based Optimization (SMBO) and "irace" - Iterative Race;
+* epoch: id of the repetition (may be a value between 1 and 30).
 
 ### How it works?
 
@@ -56,7 +52,13 @@ Rafael Gomes Mantovani (rgmantovani@gmail.com) University of São Paulo - São C
 
 [2] Bernd Bischl, Jakob Bossek, Daniel Horn and Michel Lang (NA). mlrMBO: Model-Based Optimization for mlr. R package version 1.0. Available at: https://github.com/berndbischl/mlrMBO .
 
-[3] Snoek
+[3] [add SMBO ref]
+
+[4] [add J48 ref]
+
+[5] [add CART ref]
+
+[6] [add SVM ref]
 
 ### Citation
 
