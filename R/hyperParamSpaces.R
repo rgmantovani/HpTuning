@@ -3,14 +3,11 @@
 
 getHyperSpace = function(learner, ...) {
 
-  temp = gsub(x = learner$id, pattern = ".preproc", replacement = "")
-  name = sub('classif.', '', temp)
-  name = sub('.customized', '', name)
-  name = sub('.imputed', '', name)
+  name = gsub(pattern="classif.|.preproc|.imputed", replacement="", x=learner$id)
   substring(name, 1, 1) = toupper(substring(name, 1, 1)) 
-  
   fn.space = get(paste0("get", name , "Space"))
   par.set = fn.space(...)
+
   return(par.set)
 }
 
@@ -38,28 +35,6 @@ getJ48Space = function(...) {
 # -------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------
 
-getRangerSpace = function(...) {
-  args = list(...)
-  par.set = makeParamSet(
-    makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
-    makeIntegerParam("num.trees", lower = 0, upper=10, trafo = function(x) 2^x)
-  )
-  return(par.set)
-}
-
-# -------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------
-
-getKknnSpace = function(...) {
-  par.set = makeParamSet(
-    makeIntegerParam("k", lower = 1, upper = 50, default = 1)
-  )
-  return(par.set)
-}
-
-# -------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------
-
 getSvmSpace = function(...) {
   par.set = makeParamSet(
     makeDiscreteParam("kernel", values = "radial", default = "radial", tunable = FALSE),
@@ -72,6 +47,12 @@ getSvmSpace = function(...) {
 # -------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------
 
+# * minsplit: the minimum number of observations that must exist in a node in order for a
+# split to be attempted.
+# * the minimum number of observations in any terminal <leaf> node
+# * complexity parameter. Any split that does not decrease the overall lack of fit by
+# a factor of cp is not attempted. 
+
 getRpartSpace = function(...) {
   args = list(...)
   par.set = makeParamSet(
@@ -82,26 +63,6 @@ getRpartSpace = function(...) {
       trafo = function(x) 2^x)
   )
   return(par.set)  
-}
-
-# -------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------
-
-getGbmSpace = function(...) {
-  par.set = makeParamSet(
-    makeIntegerParam("n.trees", lower = 500, upper = 10000),
-    makeIntegerParam("interaction.depth", lower = 1, upper = 5),
-    makeNumericParam("shrinkage", lower = -4, upper = -1, trafo = function(x) 10^x)
-  )
-  return(par.set)
-}
-
-# -------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------
-
-getNaiveBayesSpace = function(...) {
-  par.set =  makeParamSet()
-  return(par.set)
 }
 
 # -------------------------------------------------------------------------------------------------

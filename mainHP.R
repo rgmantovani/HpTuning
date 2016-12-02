@@ -8,17 +8,17 @@ mainMetaLevel = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL
   assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
   sub.data = gsub(x = list.files(path = "data/"), pattern = ".arff", replacement = "")
   assertChoice(x = datafile, choices = sub.data, .var.name = "datafile")
-  assertChoice(x = algo, choices = c("classif.svm", "classif.J48"), .var.name = "algo")
+  assertChoice(x = algo, choices = AVAILABLE.LEARNERS, .var.name = "algo")
   assertInt(x = rep, lower = 1, upper = 30, .var.name = "rep")
 
-  catf(paste0(" - Datafile: \t", datafile))
-  catf(paste0(" - Algorithm: \t", algo))
-  catf(paste0(" - Tuning: \t", tuning))
-  catf(paste0(" - Repetition: \t", rep))
+  cat(paste0(" - Datafile: \t", datafile, "\n"))
+  cat(paste0(" - Algorithm: \t", algo, "\n"))
+  cat(paste0(" - Tuning: \t", tuning, "\n"))
+  cat(paste0(" - Repetition: \t", rep, "\n"))
 
   runTuning(datafile = datafile, algo = algo, tuning = tuning, rep = rep)
   
-  catf("Done!")
+  cat("Done!")
 }
 
 

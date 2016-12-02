@@ -6,40 +6,41 @@
   datafile = "iris"
   # datafile = "glass"
   
-  algo     = "classif.J48"
+  # algo     = "classif.J48"
   # algo     = "classif.svm"
+  algo     = "classif.rpart"
   
   # tuning   = "mbo"
   tuning   = "random"
   # tuning   = "defaults"
   # tuning = "irace"
   
-  rep      = 10
+  rep      = 4#10
 
   # Checking params values
   assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
   sub.data = gsub(x = list.files(path = "data/"), pattern = ".arff", replacement = "")
   assertChoice(x = datafile, choices = sub.data, .var.name = "datafile")
-  assertChoice(x = algo, choices = c("classif.svm", "classif.J48"), .var.name = "algo")
+  assertChoice(x = algo, choices = AVAILABLE.LEARNERS, .var.name = "algo")
   assertInt(x = rep, lower = 1, upper = 30, .var.name = "rep")
 
-  catf(paste0(" - Datafile: \t", datafile))
-  catf(paste0(" - Algorithm: \t", algo))
-  catf(paste0(" - Tuning: \t", tuning))
-  catf(paste0(" - Repetition: \t", rep))
+  cat(paste0(" - Datafile: \t", datafile, "\n"))
+  cat(paste0(" - Algorithm: \t", algo, "\n"))
+  cat(paste0(" - Tuning: \t", tuning, "\n"))
+  cat(paste0(" - Repetition: \t", rep, "\n"))
 
   output.dir = paste0("output/", datafile, "/", algo, "/", tuning, "/rep", rep)
 
   if(!dir.exists(output.dir)) {
     dir.create(path = output.dir, recursive = TRUE)
-    catf(paste0(" - Creating dir: ", output.dir))
+    cat(paste0(" - Creating dir: ", output.dir, "\n"))
   }
 
   if(file.exists(paste0(output.dir, "/perf_", datafile, ".RData"))) {
-     warningf("Job already finished!")
+     warningf("Job already finished!\n")
   } else {
 
-    catf(paste0(" @ Loading dataset: ", datafile))
+    cat(paste0(" @ Loading dataset: ", datafile, "\n"))
     data = foreign::read.arff(paste0("data/", datafile, ".arff"))
 
     task = makeClassifTask(
@@ -58,8 +59,11 @@
       new.lrn = learner
     } else {
 
-      par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task))
+      par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task), 
+        n = mlr::getTaskSize(task))
+
       BUDGET  = 10 #50
+      cat(paste0(" @ budget: ", BUDGET, "\n"))
 
       if(tuning == "random") {
         ctrl = makeTuneControlRandom(maxit = BUDGET)

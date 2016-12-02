@@ -7,7 +7,7 @@ runTuning = function(datafile, algo, tuning, rep) {
 
   if(!dir.exists(output.dir)) {
     dir.create(path = output.dir, recursive = TRUE)
-    catf(paste0(" - Creating dir: ", output.dir))
+    cat(paste0(" - Creating dir: ", output.dir, "\n"))
   }
 
   #check if the output already exists
@@ -15,7 +15,7 @@ runTuning = function(datafile, algo, tuning, rep) {
      warningf("Job already finished!")
   } else{
 
-    catf(paste0(" @ Loading dataset: ", datafile))
+    cat(paste0(" @ Loading dataset: ", datafile, "\n"))
     data = foreign::read.arff(paste0("data/", datafile, ".arff"))
 
     task = makeClassifTask(
@@ -34,8 +34,10 @@ runTuning = function(datafile, algo, tuning, rep) {
       new.lrn = learner
     } else {
 
-      par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task))
+      par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task), 
+        n = mlr::getTaskSize(task))
       BUDGET  = TUNING_CONSTANT * length(par.set$pars)
+      cat(paste0(" @ budget: ", BUDGET, "\n"))
      
       if(tuning == "random") {
         ctrl = makeTuneControlRandom(maxit = BUDGET)

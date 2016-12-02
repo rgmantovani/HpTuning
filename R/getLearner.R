@@ -11,7 +11,8 @@ getLearner = function(algo) {
 
   lrn = makeImputeWrapper(
     learner = algo,
-    classes = list(numeric = imputeMedian(), factor = imputeMode())
+    classes = list(numeric = imputeMedian(), factor = imputeMode(), integer = imputeMedian()),
+    dummy.classes = c("numeric", "factor", "integer")
   )
   
   new.lrn = makeRemoveConstantFeaturesWrapper(learner = lrn)
