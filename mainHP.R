@@ -11,6 +11,8 @@ mainMetaLevel = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL
   assertChoice(x = algo, choices = AVAILABLE.LEARNERS, .var.name = "algo")
   assertInt(x = rep, lower = 1, upper = 30, .var.name = "rep")
 
+  set.seed(rep)
+
   cat(paste0(" - Datafile: \t", datafile, "\n"))
   cat(paste0(" - Algorithm: \t", algo, "\n"))
   cat(paste0(" - Tuning: \t", tuning, "\n"))

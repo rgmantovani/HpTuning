@@ -11,11 +11,13 @@
   algo     = "classif.rpart"
   
   # tuning   = "mbo"
-  tuning   = "random"
+  # tuning   = "random"
   # tuning   = "defaults"
   # tuning = "irace"
   
-  rep      = 7
+  rep      = 8
+
+  set.seed(rep)
 
   # Checking params values
   assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
