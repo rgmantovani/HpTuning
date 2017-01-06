@@ -1,11 +1,11 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-mainMetaLevel = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
+mainHP = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
 
   devtools::load_all()
 
-  assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
+  assertChoice(x = tuning, choices = AVAILABLE.TUNNERS, .var.name = "tuning")
   sub.data = gsub(x = list.files(path = "data/"), pattern = ".arff", replacement = "")
   assertChoice(x = datafile, choices = sub.data, .var.name = "datafile")
   assertChoice(x = algo, choices = AVAILABLE.LEARNERS, .var.name = "algo")
@@ -37,7 +37,7 @@ argsDF = as.data.frame(do.call("rbind", parseArgs(args)))
 argsL = as.list(as.character(argsDF$V2))
 
 # Calling execution with the arguments
-mainMetaLevel(datafile = argsL[[1]], algo = argsL[[2]], tuning = argsL[[3]], 
+mainHP(datafile = argsL[[1]], algo = argsL[[2]], tuning = argsL[[3]], 
   rep = as.integer(argsL[[4]]))
 
 #--------------------------------------------------------------------------------------------------

@@ -13,11 +13,14 @@ configureMlr(show.info = TRUE)
 
 # constants
 INNER_FOLDS = 3
+
 OUTER_FOLDS = 10
+
 TUNING_CONSTANT = 100
 
-# put the available learners
 AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart")
+
+AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace")
 
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------

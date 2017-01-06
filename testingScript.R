@@ -12,7 +12,7 @@
   
   # tuning   = "mbo"
   # tuning   = "random"
-  # tuning   = "defaults"
+  tuning   = "defaults"
   # tuning = "irace"
   
   rep      = 8
@@ -20,7 +20,7 @@
   set.seed(rep)
 
   # Checking params values
-  assertChoice(x = tuning, choices = c("random", "defaults", "mbo", "irace"), .var.name = "tuning")
+  assertChoice(x = tuning, choices = AVAILABLE.TUNNERS, .var.name = "tuning")
   sub.data = gsub(x = list.files(path = "data/"), pattern = ".arff", replacement = "")
   assertChoice(x = datafile, choices = sub.data, .var.name = "datafile")
   assertChoice(x = algo, choices = AVAILABLE.LEARNERS, .var.name = "algo")
