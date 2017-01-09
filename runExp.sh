@@ -18,7 +18,7 @@ for data in "${arr[@]}"
 do
   for algo in "classif.J48" # "classif.rpart" "classif.svm"
   do
-    for tuning in "defaults" "random" "smbo" "irace"
+    for tuning in "defaults" "random" "mbo" #"irace"
     do
       for rep in $(seq 1 30);
       do

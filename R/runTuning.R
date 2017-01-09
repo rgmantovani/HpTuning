@@ -13,7 +13,7 @@ runTuning = function(datafile, algo, tuning, rep) {
   #check if the output already exists
   if(file.exists(paste0(output.dir, "/perf_", datafile, ".RData"))) {
      warningf("Job already finished!")
-  } else{
+  } else {
 
     cat(paste0(" @ Loading dataset: ", datafile, "\n"))
     data = foreign::read.arff(paste0("data/", datafile, ".arff"))
@@ -24,8 +24,9 @@ runTuning = function(datafile, algo, tuning, rep) {
       target = "Class",
     )
 
-    outer.cv = makeResampleDesc(method = "CV", iter = OUTER_FOLDS)
-    inner.cv = makeResampleDesc(method = "CV", iter = INNER_FOLDS)
+    # stratify-CV
+    outer.cv = makeResampleDesc(method = "CV", iter = OUTER_FOLDS, stratify = TRUE)
+    inner.cv = makeResampleDesc(method = "CV", iter = INNER_FOLDS, stratify = TRUE)
 
     measures = list(ber, acc, timetrain, timepredict)
     learner = getLearner(algo = algo)

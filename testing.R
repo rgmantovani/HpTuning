@@ -3,19 +3,29 @@
 
   devtools::load_all()
 
-  datafile = "iris"
+  # datafile = "iris"
   # datafile = "glass"
-  
-  # algo     = "classif.J48"
-  # algo     = "classif.svm"
-  algo     = "classif.rpart"
-  
-  # tuning   = "mbo"
-  # tuning   = "random"
-  tuning   = "defaults"
-  # tuning = "irace"
-  
-  rep      = 8
+  # datafile = "arrhythmia"
+
+  # args = c("arrhythmia", "classif.J48", "defaults", 24)
+  # args = c("arrhythmia", "classif.J48", "random", 24)
+  # args = c("iris", "classif.J48", "mbo", 24)
+  args = c("iris", "classif.J48", "irace", 24)
+
+  # args = c("iris", "classif.rpart", "defaults", 24)
+  # args = c("iris", "classif.rpart", "random", 24)
+  # args = c("iris", "classif.rpart", "mbo", 24)
+  # args = c("iris", "classif.rpart", "irace", 24)
+
+  # args = c("iris", "classif.svm", "defaults", 24)
+  # args = c("iris", "classif.svm", "random", 24)
+  # args = c("iris", "classif.svm", "mbo", 24)
+  # args = c("iris", "classif.svm", "irace", 24)
+
+  datafile = args[[1]]
+  algo = args[[2]]
+  tuning = args[[3]] 
+  rep = as.integer(args[[4]])
 
   set.seed(rep)
 
@@ -39,7 +49,7 @@
   }
 
   if(file.exists(paste0(output.dir, "/perf_", datafile, ".RData"))) {
-     warningf("Job already finished!\n")
+    warningf("Job already finished!\n")
   } else {
 
     cat(paste0(" @ Loading dataset: ", datafile, "\n"))
@@ -51,8 +61,8 @@
       target = "Class",
     )
 
-    outer.cv = makeResampleDesc(method = "CV", iter = 2)
-    inner.cv = makeResampleDesc(method = "CV", iter = 3)
+    outer.cv = makeResampleDesc(method = "CV", iter = 2, stratify = TRUE)
+    inner.cv = makeResampleDesc(method = "CV", iter = 3, stratify = TRUE)
 
     measures = list(ber, acc, timetrain, timepredict)
     learner = getLearner(algo = algo)
@@ -64,7 +74,7 @@
       par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task), 
         n = mlr::getTaskSize(task))
 
-      BUDGET  = 10 #50
+      BUDGET  = 50
       cat(paste0(" @ budget: ", BUDGET, "\n"))
 
       switch(tuning,
