@@ -2,6 +2,11 @@
 #--------------------------------------------------------------------------------------------------
 
   devtools::load_all()
+ 
+  unlockBinding("tuneParams", as.environment("package:mlr"))
+  assignInNamespace("tuneParams", myTuneParams, ns="mlr", envir=as.environment("package:mlr"))
+  assign("tuneParams", myTuneParams, as.environment("package:mlr"))
+  lockBinding("tuneParams", as.environment("package:mlr"))
 
   # datafile = "iris"
   # datafile = "glass"
@@ -10,7 +15,9 @@
   # args = c("arrhythmia", "classif.J48", "defaults", 24)
   # args = c("arrhythmia", "classif.J48", "random", 24)
   # args = c("iris", "classif.J48", "mbo", 24)
-  args = c("iris", "classif.J48", "irace", 24)
+  # args = c("iris", "classif.J48", "irace", 24)
+  # args = c("iris", "classif.J48", "pso", 24)
+
 
   # args = c("iris", "classif.rpart", "defaults", 24)
   # args = c("iris", "classif.rpart", "random", 24)
@@ -21,6 +28,7 @@
   # args = c("iris", "classif.svm", "random", 24)
   # args = c("iris", "classif.svm", "mbo", 24)
   # args = c("iris", "classif.svm", "irace", 24)
+  args = c("iris", "classif.svm", "pso", 24)
 
   datafile = args[[1]]
   algo = args[[2]]
@@ -82,12 +90,13 @@
         mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET, 
           n.init.points = 10)},
         irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, 
-          minNbSurvival = 1)}
+          minNbSurvival = 1)},
+        pso    =  {ctrl = makeTuneControlPSO(n.particles = 10, maxit = 5)}
       )
 
       # New wrapper tuned learner 
       new.lrn = makeTuneWrapper(learner = learner, resampling = inner.cv,
-        measure = ber, par.set = par.set, control = ctrl, show.info = TRUE)
+        measure = list(ber), par.set = par.set, control = ctrl, show.info = TRUE)
     }
 
     # Running: dataset + learner + tuning method

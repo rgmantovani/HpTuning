@@ -19,7 +19,8 @@ getSMBOControl = function(par.set, budget, n.init.points = 10) {
     classes = list(numeric = imputeMedian(), factor = imputeMode())
   )
   
-  ctrl = mlr:::makeTuneControlMBO(learner = surrogate.model, mbo.control = ctrl, mbo.design = design)
+  ctrl = mlr:::makeTuneControlMBO(learner = surrogate.model, mbo.control = ctrl, 
+    mbo.design = design)
   return(ctrl)
 }
 

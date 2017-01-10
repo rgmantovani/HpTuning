@@ -37,7 +37,7 @@ getJ48Space = function(...) {
 
 getSvmSpace = function(...) {
   par.set = makeParamSet(
-    makeDiscreteParam("kernel", values = "radial", default = "radial", tunable = FALSE),
+    # makeDiscreteParam("kernel", values = "radial", default = "radial", tunable = FALSE),
     makeNumericParam("cost" , lower = -15, upper = 15, trafo = function(x) 2^x),
     makeNumericParam("gamma", lower = -15, upper = 15, trafo = function(x) 2^x)
   )
