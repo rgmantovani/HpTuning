@@ -48,7 +48,11 @@ myCheckTunerParset = function(learner, par.set, measures, control) {
     checkParsOk("PSO", c("logical", "numeric", "integer", "numericvector", "integervector"))
     checkStart()
   }
-  if (inherits(control, "TuneControlPSO")) {
+  if (inherits(control, "TuneControlGA")) {
+    checkParsOk("PSO", c("logical", "numeric", "integer", "numericvector", "integervector"))
+    checkStart()
+  }
+  if (inherits(control, "TuneControlEDA")) {
     checkParsOk("PSO", c("logical", "numeric", "integer", "numericvector", "integervector"))
     checkStart()
   }
@@ -56,7 +60,7 @@ myCheckTunerParset = function(learner, par.set, measures, control) {
   # check requires / dependent params
   if (hasRequires(par.set) && cl %nin% c("TuneControlRandom", "TuneControlGrid",
       "TuneControlDesign", "TuneControlIrace", "TuneControlMBO", 
-      "TuneControlPSO", "TuneControlGA", "TuneMultiCritControlRandom"))
+      "TuneControlPSO", "TuneControlGA", "TuneControlEDA", "TuneMultiCritControlRandom"))
     stopf("Tuning algorithm for '%s' cannot handle dependent parameters!", cl)
 
   if (inherits(control, "TuneMultiCritControl"))

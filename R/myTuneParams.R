@@ -29,6 +29,7 @@ myTuneParams = function(learner, task, resampling, measures, par.set, control,
     TuneControlIrace  =  mlr:::tuneIrace,
     TuneControlPSO    = tunePSO,
     TuneControlGA     = tuneGA, 
+    TuneControlEDA    = tuneEDA,
     stopf("Tuning algorithm for '%s' does not exist!", cl)
   )
   opt.path =  mlr:::makeOptPathDFFromMeasures(par.set, measures, include.extra = (control$tune.threshold))

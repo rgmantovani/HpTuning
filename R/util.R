@@ -24,7 +24,7 @@ convertLogicalToInteger = function(par.set) {
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-customizedConverter = function(x, par.set) { #} org.par.set) {
+customizedConverter = function(x, par.set) {
  
   # round integers
   new.x = Map(function(par, v) {
@@ -36,6 +36,9 @@ customizedConverter = function(x, par.set) { #} org.par.set) {
     }
   }, par.set$pars, x)
 
+  # check param set (to be in the range) - ParamHelpers, 
+  # TODO: apply something when there is no value
+
   # TODO: change this - turn back to logical
   new.x$O = as.logical(new.x$O)
   new.x$R = as.logical(new.x$R)
@@ -43,8 +46,11 @@ customizedConverter = function(x, par.set) { #} org.par.set) {
   new.x$S = as.logical(new.x$S)
   new.x$A = as.logical(new.x$A)
   new.x$J = as.logical(new.x$J)
-  if(new.x$R) {new.x$C = NA} else {new.x$N = NA}
- 
+  if(new.x$R) {
+    new.x$C = NA
+  } else {
+    new.x$N = NA
+  }
   return(new.x)
 }
 

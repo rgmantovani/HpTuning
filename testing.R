@@ -16,20 +16,22 @@
   # args = c("iris", "classif.J48", "mbo", 24)
   # args = c("iris", "classif.J48", "irace", 24)
   # args = c("iris", "classif.J48", "pso", 20)
-  args = c("iris", "classif.J48", "ga", 20)
-
+  # args = c("iris", "classif.J48", "ga", 20)
+  # args = c("iris", "classif.J48", "eda", 20)
 
   # args = c("iris", "classif.rpart", "defaults", 24)
   # args = c("iris", "classif.rpart", "random", 24)
   # args = c("iris", "classif.rpart", "mbo", 24)
   # args = c("iris", "classif.rpart", "irace", 24)
   # args = c("iris", "classif.rpart", "pso", 24)
+  # args = c("iris", "classif.rpart", "eda", 24)
 
   # args = c("iris", "classif.svm", "defaults", 24)
   # args = c("iris", "classif.svm", "random", 24)
   # args = c("iris", "classif.svm", "mbo", 24)
   # args = c("iris", "classif.svm", "irace", 24)
   # args = c("iris", "classif.svm", "pso", 24)
+  args = c("iris", "classif.svm", "eda", 24)
 
   datafile = args[[1]]
   algo = args[[2]]
@@ -91,7 +93,8 @@
         mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET, n.init.points = 10)},
         irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)},
         pso    = { ctrl = makeTuneControlPSO(n.particles = POP.SIZE, maxit = 5)},
-        ga     = { ctrl = makeTuneControlGA(pop.size = POP.SIZE, maxit = 5)}
+        ga     = { ctrl = makeTuneControlGA(pop.size = POP.SIZE, maxit = 5)},
+        eda    = { ctrl = makeTuneControlEDA(pop.size = POP.SIZE, maxit = 5)}
       )
 
       # New wrapper tuned learner 

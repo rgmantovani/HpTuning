@@ -6,7 +6,7 @@
 tunePSO = function(learner, task, resampling, measures, par.set, control, opt.path, show.info) {
   requirePackages("pso", why = "tunePSO", default.method = "load")
 
-  # is there is logical parameter
+  # if there is logical parameter
   if(any(unlist(lapply(par.set$pars, function(par) { par$type == "logical"})))) {
     par.set = convertLogicalToInteger(par.set = par.set)
     cx = function(x, par.set) { customizedConverter(x, par.set) }
