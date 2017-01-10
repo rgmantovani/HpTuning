@@ -1,7 +1,8 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-install.packages(pkgs = c("devtools, RWeka", "e1071", "irace", "checkmate", "pso", "rpart"))
+install.packages(pkgs = c("devtools, RWeka", "e1071", "irace", "checkmate", "pso", "rpart",
+  "GA"))
 
 devtools::install_github("berndbischl/ParamHelpers", 
   ref = "9d374430701d94639cc78db84f91a0c595927189")
