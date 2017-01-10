@@ -16,7 +16,7 @@
   # args = c("iris", "classif.J48", "mbo", 24)
   # args = c("iris", "classif.J48", "irace", 24)
   # args = c("iris", "classif.J48", "pso", 20)
-  # args = c("iris", "classif.J48", "ga", 20)
+  args = c("iris", "classif.J48", "ga", 20)
   # args = c("iris", "classif.J48", "eda", 20)
 
   # args = c("iris", "classif.rpart", "defaults", 24)
@@ -31,7 +31,7 @@
   # args = c("iris", "classif.svm", "mbo", 24)
   # args = c("iris", "classif.svm", "irace", 24)
   # args = c("iris", "classif.svm", "pso", 24)
-  args = c("iris", "classif.svm", "eda", 24)
+  # args = c("iris", "classif.svm", "eda", 24)
 
   datafile = args[[1]]
   algo = args[[2]]

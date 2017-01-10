@@ -4,6 +4,7 @@
 convertLogicalToInteger = function(par.set) {
   
   aux = lapply(par.set$pars, function(par) {
+    
     if(par$type == "logical") {
       par$type = "integer"
       par$lower = 0
@@ -36,9 +37,7 @@ customizedConverter = function(x, par.set) {
     }
   }, par.set$pars, x)
 
-  # check param set (to be in the range) - ParamHelpers, 
   # TODO: apply something when there is no value
-
   # TODO: change this - turn back to logical
   new.x$O = as.logical(new.x$O)
   new.x$R = as.logical(new.x$R)
@@ -48,8 +47,10 @@ customizedConverter = function(x, par.set) {
   new.x$J = as.logical(new.x$J)
   if(new.x$R) {
     new.x$C = NA
+    if(is.na(new.x$N)) { new.x$N = 3 }
   } else {
     new.x$N = NA
+    if(is.na(new.x$C)) { new.x$C = 0.25 }
   }
   return(new.x)
 }

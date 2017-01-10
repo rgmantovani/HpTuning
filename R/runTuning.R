@@ -42,10 +42,11 @@ runTuning = function(datafile, algo, tuning, rep) {
      
       switch(tuning,
         random = { ctrl = makeTuneControlRandom(maxit = BUDGET)},
-        mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET, 
-          n.init.points = 50)},
-        irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, 
-          minNbSurvival = 1)}
+        mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET, n.init.points = 50)},
+        irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)},
+        pso    = { ctrl = makeTuneControlPSO(n.particles = POP.SIZE, maxit = round(BUDGET/POP.SIZE))},
+        ga     = { ctrl = makeTuneControlGA(pop.size = POP.SIZE, maxit = round(BUDGET/POP.SIZE))},
+        eda    = { ctrl = makeTuneControlEDA(pop.size = POP.SIZE, maxit = round(BUDGET/POP.SIZE))}
       )
 
       # New wrapper tuned learner
