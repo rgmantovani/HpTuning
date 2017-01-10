@@ -79,8 +79,10 @@
 
       switch(tuning,
         random = { ctrl = makeTuneControlRandom(maxit = BUDGET)},
-        mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET)},
-        irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, minNbSurvival = 1)}
+        mbo    = { ctrl = getSMBOControl(par.set = par.set, budget = BUDGET, 
+          n.init.points = 10)},
+        irace  = { ctrl = makeTuneControlIrace(budget = BUDGET, nbIterations = 1L, 
+          minNbSurvival = 1)}
       )
 
       # New wrapper tuned learner 
