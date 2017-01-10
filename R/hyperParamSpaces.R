@@ -37,7 +37,6 @@ getJ48Space = function(...) {
 
 getSvmSpace = function(...) {
   par.set = makeParamSet(
-    # makeDiscreteParam("kernel", values = "radial", default = "radial", tunable = FALSE),
     makeNumericParam("cost" , lower = -15, upper = 15, trafo = function(x) 2^x),
     makeNumericParam("gamma", lower = -15, upper = 15, trafo = function(x) 2^x)
   )
@@ -47,16 +46,10 @@ getSvmSpace = function(...) {
 # -------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------
 
-# * minsplit: the minimum number of observations that must exist in a node in order for a
-# split to be attempted.
-# * the minimum number of observations in any terminal <leaf> node
-# * complexity parameter. Any split that does not decrease the overall lack of fit by
-# a factor of cp is not attempted. 
-
 getRpartSpace = function(...) {
   args = list(...)
   par.set = makeParamSet(
-    makeNumericParam("cp", lower = -4, upper = -1, trafo = function(x) 10^x),
+    makeIntegerParam("cp", lower = -4, upper = -1, trafo = function(x) 10^x),
     makeIntegerParam("minsplit", lower = 1, upper = min(7, floor(log2(args$n))), 
       trafo = function(x) 2^x),
     makeIntegerParam("minbucket", lower = 0, upper = min(6, floor(log2(args$n))), 

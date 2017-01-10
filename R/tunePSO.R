@@ -1,18 +1,27 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
+# TODO: add suppor to discrete params
+
 tunePSO = function(learner, task, resampling, measures, par.set, control, opt.path, show.info) {
   requirePackages("pso", why = "tunePSO", default.method = "load")
 
-  low = getLower(par.set)
-  upp = getUpper(par.set)
+  # is there is logical parameter
+  if(any(unlist(lapply(par.set$pars, function(par) { par$type == "logical"})))) {
+    par.set = convertLogicalToInteger(par.set = par.set)
+    cx = function(x, par.set) { customizedConverter(x, par.set) }
+  } else {
+    cx = function(x, par.set) mlr:::convertXNumeric(x, par.set)
+  }
+
+  low = ParamHelpers::getLower(par.set)
+  upp = ParamHelpers::getUpper(par.set)
   start = control$start
 
   if (is.null(start))
     start = sampleValue(par.set, start, trafo = FALSE)
   start = mlr:::convertStartToNumeric(start, par.set)
 
-  cx = function(x, par.set) mlr:::convertXNumeric(x, par.set)
   ctrl.pso = list(trace = 0, trace.stats = NULL)
   ctrl.pso = insert(ctrl.pso, control$extra.args)
   assertInt(x = ctrl.pso$n.particles, lower = 10, null.ok = TRUE, .var.name = "n.particles")
@@ -28,10 +37,8 @@ tunePSO = function(learner, task, resampling, measures, par.set, control, opt.pa
     }
   } else {
     ctrl.pso$s = ctrl.pso$n.particles
-    # cannot be in the control or package 'pso' throws a warning
     ctrl.pso$n.particles = NULL
   }
-  # cannot be in the control or package 'pso' throws a warning
   ctrl.pso$pso.impl = NULL
   
   ctrl.pso$maxf = (ctrl.pso$s * ctrl.pso$maxit)
@@ -44,10 +51,9 @@ tunePSO = function(learner, task, resampling, measures, par.set, control, opt.pa
     }
   }
 
-  # TODO: change the fitness function
   res = pso::psoptim(par = start, fn = mlr:::tunerFitnFun, learner = learner, task = task,
     resampling = resampling, measures = measures, par.set = par.set, ctrl = control,
-    opt.path = opt.path, show.info = show.info, convertx = cx, remove.nas = FALSE,
+    opt.path = opt.path, show.info = show.info, convertx = cx, remove.nas = TRUE,
     lower = low, upper = upp, control = ctrl.pso)
 
   tune.result = mlr:::makeTuneResultFromOptPath(learner, par.set, measures, control, opt.path)

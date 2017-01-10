@@ -12,16 +12,18 @@ library("pso")
 configureMlr(on.learner.error = "warn")
 configureMlr(show.info = TRUE)
 
-# constants
-INNER_FOLDS = 3
+AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart")
+AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace", "pso")
 
+INNER_FOLDS = 3
 OUTER_FOLDS = 10
 
 TUNING_CONSTANT = 100
+POP.SIZE = 10
 
-AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart")
-
-AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace", "pso")
+# GA Parameters
+GA.PROB.MUT = 0.05
+GA.ELITISM = max(1, round(POP.SIZE * 0.05))
 
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------

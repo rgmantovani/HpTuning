@@ -5,6 +5,12 @@ mainHP = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
 
   devtools::load_all()
 
+  # Using our function version until they are not merged to the mlr package
+  unlockBinding("tuneParams", as.environment("package:mlr"))
+  assignInNamespace("tuneParams", myTuneParams, ns="mlr", envir=as.environment("package:mlr"))
+  assign("tuneParams", myTuneParams, as.environment("package:mlr"))
+  lockBinding("tuneParams", as.environment("package:mlr"))
+
   assertChoice(x = tuning, choices = AVAILABLE.TUNNERS, .var.name = "tuning")
   sub.data = gsub(x = list.files(path = "data/"), pattern = ".arff", replacement = "")
   assertChoice(x = datafile, choices = sub.data, .var.name = "datafile")

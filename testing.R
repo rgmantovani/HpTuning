@@ -8,27 +8,26 @@
   assign("tuneParams", myTuneParams, as.environment("package:mlr"))
   lockBinding("tuneParams", as.environment("package:mlr"))
 
-  # datafile = "iris"
-  # datafile = "glass"
-  # datafile = "arrhythmia"
+  assignInNamespace("checkTunerParset", myCheckTunerParset, ns="mlr", envir=as.environment("package:mlr"))
 
-  # args = c("arrhythmia", "classif.J48", "defaults", 24)
-  # args = c("arrhythmia", "classif.J48", "random", 24)
-  # args = c("iris", "classif.J48", "mbo", 24)
+
+  # args = c("iris", "classif.J48", "defaults", 24)
+  # args = c("iris", "classif.J48", "random", 24)
+  args = c("iris", "classif.J48", "mbo", 24)
   # args = c("iris", "classif.J48", "irace", 24)
   # args = c("iris", "classif.J48", "pso", 24)
-
 
   # args = c("iris", "classif.rpart", "defaults", 24)
   # args = c("iris", "classif.rpart", "random", 24)
   # args = c("iris", "classif.rpart", "mbo", 24)
   # args = c("iris", "classif.rpart", "irace", 24)
+  # args = c("iris", "classif.rpart", "pso", 24)
 
   # args = c("iris", "classif.svm", "defaults", 24)
   # args = c("iris", "classif.svm", "random", 24)
   # args = c("iris", "classif.svm", "mbo", 24)
   # args = c("iris", "classif.svm", "irace", 24)
-  args = c("iris", "classif.svm", "pso", 24)
+  # args = c("iris", "classif.svm", "pso", 24)
 
   datafile = args[[1]]
   algo = args[[2]]

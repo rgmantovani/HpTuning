@@ -2,7 +2,8 @@
 #--------------------------------------------------------------------------------------------------
 
 
-myTuneParams = function(learner, task, resampling, measures, par.set, control, show.info = getMlrOption("show.info")) {
+myTuneParams = function(learner, task, resampling, measures, par.set, control, 
+  show.info = getMlrOption("show.info")) {
 
   learner = mlr:::checkLearner(learner)
   assertClass(task, classes = "Task")
@@ -19,13 +20,13 @@ myTuneParams = function(learner, task, resampling, measures, par.set, control, s
 
   cl = getClass1(control)
   sel.func = switch(cl,
-    TuneControlRandom = tuneRandom,
-    TuneControlGrid   = tuneGrid,
-    TuneControlDesign = tuneDesign,
-    TuneControlCMAES  = tuneCMAES,
-    TuneControlGenSA  = tuneGenSA,
-    TuneControlMBO    = tuneMBO,
-    TuneControlIrace  = tuneIrace,
+    TuneControlRandom =  mlr:::tuneRandom,
+    TuneControlGrid   =  mlr:::tuneGrid,
+    TuneControlDesign =  mlr:::tuneDesign,
+    TuneControlCMAES  =  mlr:::tuneCMAES,
+    TuneControlGenSA  =  mlr:::tuneGenSA,
+    TuneControlMBO    =  mlr:::tuneMBO,
+    TuneControlIrace  =  mlr:::tuneIrace,
     TuneControlPSO    = tunePSO,
     stopf("Tuning algorithm for '%s' does not exist!", cl)
   )
