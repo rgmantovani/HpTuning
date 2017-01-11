@@ -1,11 +1,11 @@
 # HpTuning
 
-'HPTuning' is a program that performs hyper-parameter tuning of different Machine Learning (ML) classification algorithms. It uses 'mlr' [1] package as structure, and 'mlrMBO' [2] to perform Sequential Model Based Optimzation (SMBO) [3].
+'HPTuning' is a program that performs hyper-parameter tuning of different Machine Learning (ML) classification algorithms using different optimization techniques. The project itsleft uses the 'mlr' [1] package as structure, and working as a wrapper to the techniques provided by literature.
 
 ### Technical Requirements
 
 * R version >= 3.1.0
-* Required packages: [mlr](https://cran.r-project.org/web/packages/mlr/index.html), [mlrMBO](https://github.com/mlr-org/mlrMBO), [checkmate](https://cran.r-project.org/web/packages/checkmate/index.html)
+* Required packages: [mlr](https://cran.r-project.org/web/packages/mlr/index.html), [mlrMBO](https://github.com/mlr-org/mlrMBO), [checkmate](https://cran.r-project.org/web/packages/checkmate/index.html), [pso](https://cran.r-project.org/web/packages/pso/index.html), [GA](https://cran.r-project.org/web/packages/GA/index.html), [copulaedas](https://cran.r-project.org/web/packages/copulaedas/index.html) and [foreign](https://cran.r-project.org/web/packages/foreign/index.html).
 
 ### Setup
 
@@ -20,6 +20,33 @@ source("setup.R")
 R CMD BATCH --no-save --no-restore setup.R &
 ``` 
 
+### How it works?
+
+The program neeeds some specific parameters to run: \<datafile, algo, tuning, epoch\>. 
+* **datafile** -  dataset filename available at the "data/" subdir
+
+* **algo** - ML algorithm to be tuned
+  * "classif.J48"- J48 Decision Tree algorithm \[2\] (using RWeka R package)
+  * "classif.rpart" - CART trees \[3\] (via rpart R package)
+  * "classif.svm" - Support Vector Machines \[4\] (via e1071 R package)
+
+* **tuning** - hyper-parameter tuning technique 
+  * "defaults" - Default hyper-parameter values (from respecitive R packages); 
+  * "random" - Random Search (RS) \[5\], 
+  * "mbo" - Sequential Model-Based Optimization (SMBO) \[6\] (implemented with mlrMBO package);  
+  * "irace" - Iterative Racing Algorithm \[7\] (implemented with irace package); 
+  * "pso" - Particle Swarm Optimization \[8\] (implemented with pso package); 
+  * "ga" - Genetic Algorithm \[9\] (implemented with ga package);
+  * "eda" - Estimation of Distribution Algorithms (EDA) \[10\] (implemented with copulaedas package).
+
+* **epoch** - id of the repetition being executed. It must be a value between 1 and 30. It also controls the seed for reproducibility.
+
+Basically, given the 4-tuple, it will tune the <algo> on <datafile> using the <tuning> technique. The **epoch** parameter specifies the repetition being executed. Since most of the tuning techniques covered here are stochastics, when comparing them they need to run several times with different seeds. This execution parameter also controls this '''(seed = epoch)'''.
+
+Each single execution will be saved in a different folder, organized by its input parameters. The program will save the final performances, the hyper-parameter found during optmization, the optimization path and the predications obtained with the tuned hyper-parameters.
+
+**Obs**: On every datafile, the target attribute must be labeled as *Class*.
+
 ### Running the code
 
 To run the project, please, call it by the bash file executing it by the command:
@@ -28,19 +55,7 @@ To run the project, please, call it by the bash file executing it by the command
     --epoch=<epoch> mainHP.R out_"$datafile"_"$algo"_"$tuning"_rep_"$epoch".log &
 ```
 
-It will start the execution saving the status in an output log file. You can follow the execution and errors checking directly this file. 
-
-The available values for the execution parameters to this current version are:
-* datafile: any dataset filename available at the "data/" subdir;
-* algo: "classif.J48"- J48 Decision Tree algorithm [4], "classif.rpart" - CART trees [5] and "classif.svm" - Support Vector Machines [6];
-* tuning: "defaults" - Default hyper-parameter values, "random" - Random Search (RS) method, "mbo" - Sequential Model-Based Optimization (SMBO) and "irace" - Iterative Race;
-* epoch: id of the repetition (may be a value between 1 and 30).
-
-### How it works?
-
-The program will receive the specified parameters <datafile, algo, tuning, epoch> and will perform the "epoch"-th execution of the hyper-parameter tuning technique "tuning" over the classification algorithm "algo" with the dataset "datafile".
-
-Each single execution will be saved in a different folder, organized by its input parameters. The program will save the final performances, the optimization path, and the predications obtained with the tuned hyper-parameters found.
+It will start the script saving the status in an output log file. You can follow the execution and errors checking directly this file. 
 
 ### Contact
 
@@ -50,15 +65,23 @@ Rafael Gomes Mantovani (rgmantovani@gmail.com) University of São Paulo - São C
 
 [1] Bernd Bischl, Michel Lang, Lars Kotthoff, Julia Schiffner, Jakob Richter, Zachary Jones, Giuseppe Casalicchio. mlr: Machine Learning in R, R package version 2.10. URL https://github.com/mlr-org/mlr.
 
-[2] Bernd Bischl, Jakob Bossek, Daniel Horn and Michel Lang (NA). mlrMBO: Model-Based Optimization for mlr. R package version 1.0. Available at: https://github.com/berndbischl/mlrMBO .
+[2] J48 ref
 
-[3] [add SMBO ref]
+[3] CART ref 
 
-[4] [add J48 ref]
+[4] SVM ref
 
-[5] [add CART ref]
+[5] RS ref
 
-[6] [add SVM ref]
+[6] Bernd Bischl, Jakob Bossek, Daniel Horn and Michel Lang (NA). mlrMBO: Model-Based Optimization for mlr. R package version 1.0. 
+
+[7] irace ref
+
+[8] pso ref
+
+[9] ga ref
+
+[10] eda ref
 
 ### Citation
 
