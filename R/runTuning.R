@@ -37,7 +37,14 @@ runTuning = function(datafile, algo, tuning, rep) {
 
       par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task), 
         n = mlr::getTaskSize(task))
-      BUDGET  = TUNING_CONSTANT * length(par.set$pars)
+
+      # ----------------------------------------------------------
+      # * empirical rule to define budget 
+      # BUDGET  = TUNING_CONSTANT * length(par.set$pars)
+      # ----------------------------------------------------------
+
+      # fixed budget      
+      BUDGET = CONFIG.BUDGET
       cat(paste0(" @ budget: ", BUDGET, "\n"))
      
       switch(tuning,
@@ -56,7 +63,7 @@ runTuning = function(datafile, algo, tuning, rep) {
 
     # Running: dataset + learner + tuning method
     res = benchmark(learners = new.lrn, tasks = list(task), resamplings = outer.cv, 
-      measures = measures, show.info = TRUE, models = FALSE)
+      measures = measures, show.info = TRUE, keep.pred = TRUE, models = TRUE)
 
     saveResults(res = res, task = task, output.dir = output.dir, tuning = tuning)
   }
