@@ -64,22 +64,12 @@ getRpartSpace = function(...) {
 # -------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------
 
-# getRangerSpace = function(...) {
-#   args = list(...)
-#   par.set = makeParamSet(
-#     makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
-#     makeIntegerParam("num.trees", lower = 0, upper = 10, trafo = function(x) 2^x),
-#     makeIntegerParam("min.node.size", lower = 1, upper = 10)
-#   )
-#   return(par.set)
-# }
-
 getRandomForestSpace = function(...) {
   args = list(...)
   par.set = makeParamSet(
     makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
     makeIntegerParam("ntree", lower = 0, upper = 10, trafo = function(x) 2^x),
-    makeIntegerParam("nodesize", lower = 1, upper = 10)
+    makeIntegerParam("nodesize", lower = 1, upper = 20)
   )
   return(par.set)
 }

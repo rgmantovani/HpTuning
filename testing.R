@@ -39,7 +39,7 @@
 
   # args = c("iris", "classif.randomForest", "defaults", 23) # ok
   # args = c("iris", "classif.randomForest", "mbo", 24)      # ok
-  args = c("iris", "classif.randomForest", "random", 23)      # ok
+  args = c("iris", "classif.randomForest", "random", 20    # ok
   # args = c("iris", "classif.randomForest", "irace", 24)    # ok
   # args = c("iris", "classif.randomForest", "pso", 24)      # ok
   # args = c("iris", "classif.randomForest", "eda", 24)      # ok
@@ -111,7 +111,7 @@
 
       # New wrapper tuned learner 
       new.lrn = makeTuneWrapper(learner = learner, resampling = inner.cv,
-        measure = list(ber), par.set = par.set, control = ctrl, show.info = TRUE)
+        measure = list(ber, timetrain, timepredict), par.set = par.set, control = ctrl, show.info = TRUE)
     }
 
     # Running: dataset + learner + tuning method
