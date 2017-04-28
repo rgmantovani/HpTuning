@@ -8,7 +8,7 @@
 #' @export
 #' @rdname TuneControl
 makeTuneControlPSO = function(same.resampling.instance = TRUE, impute.val = NULL, start = NULL,
-  tune.threshold = FALSE, tune.threshold.args = list(), log.fun = NULL, final.dw.perc = NULL,
+  tune.threshold = FALSE, tune.threshold.args = list(), log.fun = "default", final.dw.perc = NULL,
   budget = NULL, pso.impl = "SPSO2007", maxit = 100L, ...) {
 
   assertChoice(x = pso.impl, choices = c("SPSO2011", "SPSO2007"), .var.name = "pso.impl")

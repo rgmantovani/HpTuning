@@ -1,13 +1,12 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-# TODO: add suppor to discrete params
-
-tunePSO = function(learner, task, resampling, measures, par.set, control, opt.path, show.info) {
+tunePSO = function(learner, task, resampling, measures, par.set, control, opt.path, show.info, 
+  resample.fun) {
+  
   requirePackages("pso", why = "tunePSO", default.method = "load")
 
-  # if there is logical parameter
-  if(any(unlist(lapply(par.set$pars, function(par) { par$type == "logical"})))) {
+  if(ParamHelpers::hasLogical(par.set = par.set)) {  
     par.set = convertLogicalToInteger(par.set = par.set)
     cx = function(x, par.set) { customizedConverter(x, par.set) }
   } else {
@@ -53,8 +52,8 @@ tunePSO = function(learner, task, resampling, measures, par.set, control, opt.pa
 
   res = pso::psoptim(par = start, fn = mlr:::tunerFitnFun, learner = learner, task = task,
     resampling = resampling, measures = measures, par.set = par.set, ctrl = control,
-    opt.path = opt.path, show.info = show.info, convertx = cx, remove.nas = TRUE,
-    lower = low, upper = upp, control = ctrl.pso)
+    opt.path = opt.path, show.info = show.info, resample.fun = resample.fun, convertx = cx, 
+    remove.nas = TRUE, lower = low, upper = upp, control = ctrl.pso)
 
   tune.result = mlr:::makeTuneResultFromOptPath(learner, par.set, measures, control, opt.path)
   return(tune.result)

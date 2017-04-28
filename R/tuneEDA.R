@@ -1,11 +1,12 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-tuneEDA = function(learner, task, resampling, measures, par.set, control, opt.path, show.info) {
+tuneEDA = function(learner, task, resampling, measures, par.set, control, opt.path, show.info,
+  resample.fun) {
+
   requirePackages("copulaedas", why = "tuneEDA", default.method = "load")
   
-  # if there is logical parameter
-  if(any(unlist(lapply(par.set$pars, function(par) { par$type == "logical"})))) {
+  if(ParamHelpers::hasLogical(par.set = par.set)) { 
     par.set = convertLogicalToInteger(par.set = par.set)
     cx = function(x, par.set) { customizedConverter(x, par.set) }
   } else {
@@ -50,17 +51,17 @@ tuneEDA = function(learner, task, resampling, measures, par.set, control, opt.pa
 
   tunerFitFunWrapper = function(learner = learner, tasks = task, resampling = resampling,
     measures = measures, par.set = par.set, ctrl = ctrl, opt.path = opt.path, show.info = show.info,
-    convertx = convertx, remove.nas = remove.nas) {
+    resample.fun = resample.fun, convertx = convertx, remove.nas = remove.nas) {
   	temp = function(x) {
 		return( mlr:::tunerFitnFun (x, learner, task, resampling, measures, par.set, ctrl, opt.path,
-  	  show.info, convertx, remove.nas))
+  	  show.info, convertx, remove.nas, resample.fun))
   	}
   }
 
   res = copulaedas::edaRun(model, f = tunerFitFunWrapper(learner = learner, task = task,
   	resampling = resampling, measures = measures, par.set = par.set, ctrl = control,
-    opt.path = opt.path, show.info = show.info, convertx = cx, remove.nas = TRUE),
-    lower = low, upper = upp)
+    opt.path = opt.path, show.info = show.info, resample.fun = resample.fun, 
+    convertx = cx, remove.nas = TRUE), lower = low, upper = upp)
 
   tune.result = mlr:::makeTuneResultFromOptPath(learner, par.set, measures, control, opt.path)
   return(tune.result)

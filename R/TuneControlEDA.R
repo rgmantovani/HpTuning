@@ -9,7 +9,7 @@
 #' @export
 #' @rdname TuneControl
 makeTuneControlEDA = function(same.resampling.instance = TRUE, impute.val = NULL, start = NULL,
-  tune.threshold = FALSE, tune.threshold.args = list(), log.fun = NULL, final.dw.perc = NULL,
+  tune.threshold = FALSE, tune.threshold.args = list(), log.fun = "default", final.dw.perc = NULL,
   budget = NULL, eda.impl = "UMDA", maxit = 100L, pop.size = 50L, ...) {
 
   assertChoice(x = eda.impl, choices = c("UMDA", "GCEDA", "CVEDA", "DVEDA"))

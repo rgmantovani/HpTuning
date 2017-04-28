@@ -15,6 +15,7 @@ convertLogicalToInteger = function(par.set) {
         par$default = 0
       }
     }
+    
     return(par)
   })
 
@@ -37,8 +38,6 @@ customizedConverter = function(x, par.set) {
     }
   }, par.set$pars, x)
 
-  # TODO: apply something when there is no value
-  # TODO: change this - turn back to logical
   new.x$O = as.logical(new.x$O)
   new.x$R = as.logical(new.x$R)
   new.x$B = as.logical(new.x$B)

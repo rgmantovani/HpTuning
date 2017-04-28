@@ -3,11 +3,12 @@
 
 # TODO: add suppor to discrete params
 
-tuneGA = function(learner, task, resampling, measures, par.set, control, opt.path, show.info) {
+tuneGA = function(learner, task, resampling, measures, par.set, control, opt.path, show.info, 
+  resample.fun) {
+
   requirePackages("GA", why = "tuneGA", default.method = "load")
 
-  # if there is logical parameter
-  if(any(unlist(lapply(par.set$pars, function(par) { par$type == "logical"})))) {
+  if(ParamHelpers::hasLogical(par.set = par.set)) { 
     par.set = convertLogicalToInteger(par.set = par.set)
     cx = function(x, par.set) { customizedConverter(x, par.set) }
   } else {
@@ -36,10 +37,10 @@ tuneGA = function(learner, task, resampling, measures, par.set, control, opt.pat
 
   res = GA::ga(type = "real-valued", fitness = mlr:::tunerFitnFun, learner = learner, task = task,
     resampling = resampling, measures = measures, par.set = par.set, ctrl = control,
-    opt.path = opt.path, show.info = show.info, convertx = cx, remove.nas = TRUE, min = low,
-    max = upp, maxiter = ctrl.ga$maxit, run = ctrl.ga$maxit, popSize = ctrl.ga$pop.size ,
-    pcrossover = ctrl.ga$prob.crossover, pmutation = ctrl.ga$prob.mutation, suggestions = start,
-    monitor = NULL)
+    opt.path = opt.path, show.info = show.info, resample.fun = resample.fun, convertx = cx, 
+    remove.nas = TRUE, min = low, max = upp, maxiter = ctrl.ga$maxit, run = ctrl.ga$maxit, 
+    popSize = ctrl.ga$pop.size , pcrossover = ctrl.ga$prob.crossover, 
+    pmutation = ctrl.ga$prob.mutation, suggestions = start, monitor = NULL)
 
   tune.result =  mlr:::makeTuneResultFromOptPath(learner, par.set, measures, control, opt.path)
   return(tune.result)

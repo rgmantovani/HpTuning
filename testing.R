@@ -10,33 +10,45 @@
 
   assignInNamespace("checkTunerParset", myCheckTunerParset, ns="mlr", envir=as.environment("package:mlr"))
 
+  # Note: All works for SVMs
+  # args = c("iris", "classif.svm", "defaults", 24) # ok
+  # args = c("iris", "classif.svm", "random", 24)   # ok 
+  # args = c("iris", "classif.svm", "mbo", 24)      # ok 
+  # args = c("iris", "classif.svm", "irace", 24)    # ok
+  # args = c("iris", "classif.svm", "pso", 24)      # ok
+  # args = c("iris", "classif.svm", "eda", 24)      # ok
+  # args = c("iris", "classif.svm", "ga", 24)       # ok
 
-  # args = c("iris", "classif.J48", "defaults", 24)
-  # args = c("iris", "classif.J48", "random", 24)
-  # args = c("iris", "classif.J48", "mbo", 24)
-  # args = c("iris", "classif.J48", "irace", 24)
-  # args = c("iris", "classif.J48", "pso", 20)
-  args = c("iris", "classif.J48", "ga", 20)
-  # args = c("iris", "classif.J48", "eda", 20)
+  # Note: All works for J48
+  # args = c("iris", "classif.J48", "defaults", 24) # ok
+  # args = c("iris", "classif.J48", "random", 24)   # ok
+  # args = c("iris", "classif.J48", "mbo", 24)      # ok
+  # args = c("iris", "classif.J48", "irace", 24)    # ok
+  # args = c("iris", "classif.J48", "pso", 20)      # ok 
+  # args = c("iris", "classif.J48", "ga", 20)       # ok
+  # args = c("iris", "classif.J48", "eda", 20)      # ok
 
-  # args = c("iris", "classif.rpart", "defaults", 24)
-  # args = c("iris", "classif.rpart", "random", 24)
-  # args = c("iris", "classif.rpart", "mbo", 24)
-  # args = c("iris", "classif.rpart", "irace", 24)
-  # args = c("iris", "classif.rpart", "pso", 24)
-  # args = c("iris", "classif.rpart", "eda", 24)
+  # Note: All works for rpart
+  # args = c("iris", "classif.rpart", "defaults", 24)# ok
+  # args = c("iris", "classif.rpart", "random", 24)  # ok
+  # args = c("iris", "classif.rpart", "mbo", 24)     # ok
+  # args = c("iris", "classif.rpart", "irace", 24)   # ok
+  # args = c("iris", "classif.rpart", "pso", 24)     # ok
+  # args = c("iris", "classif.rpart", "eda", 24)     # ok
+  # args = c("iris", "classif.rpart", "ga", 24)      # ok
 
-  # args = c("iris", "classif.svm", "defaults", 24)
-  # args = c("iris", "classif.svm", "random", 24)
-  # args = c("iris", "classif.svm", "mbo", 24)
-  # args = c("iris", "classif.svm", "irace", 24)
-  # args = c("iris", "classif.svm", "pso", 24)
-  # args = c("iris", "classif.svm", "eda", 24)
+  # args = c("iris", "classif.randomForest", "defaults", 23) # ok
+  # args = c("iris", "classif.randomForest", "mbo", 24)      # ok
+  args = c("iris", "classif.randomForest", "random", 23)      # ok
+  # args = c("iris", "classif.randomForest", "irace", 24)    # ok
+  # args = c("iris", "classif.randomForest", "pso", 24)      # ok
+  # args = c("iris", "classif.randomForest", "eda", 24)      # ok
+  # args = c("iris", "classif.randomForest", "ga", 24)       # ok
 
   datafile = args[[1]]
-  algo = args[[2]]
-  tuning = args[[3]] 
-  rep = as.integer(args[[4]])
+  algo     = args[[2]]
+  tuning   = args[[3]] 
+  rep      = as.integer(args[[4]])
 
   set.seed(rep)
 
@@ -104,7 +116,7 @@
 
     # Running: dataset + learner + tuning method
     res = benchmark(learners = new.lrn, tasks = list(task), resamplings = outer.cv, 
-      measures = measures, show.info = TRUE, models = FALSE)
+      measures = measures, show.info = TRUE, keep.pred = TRUE, models = FALSE)
 
     # Saving results
     saveResults(res = res, task = task, output.dir = output.dir, tuning = tuning)

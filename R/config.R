@@ -11,7 +11,7 @@ library("mlrMBO")
 configureMlr(on.learner.error = "warn")
 configureMlr(show.info = TRUE)
 
-AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart")
+AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart", "classif.randomForest")
 AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace", "pso", "ga", "eda")
 
 INNER_FOLDS = 3

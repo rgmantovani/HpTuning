@@ -14,7 +14,7 @@
 #' @export
 #' @rdname TuneControl
 makeTuneControlGA = function(same.resampling.instance = TRUE, impute.val = NULL, start = NULL,
-  tune.threshold = FALSE, tune.threshold.args = list(), log.fun = NULL, final.dw.perc = NULL,
+  tune.threshold = FALSE, tune.threshold.args = list(), log.fun = "default", final.dw.perc = NULL,
   budget = NULL, prob.crossover = 0.8, prob.mutation = 0.1, pop.size = 50L, maxit = 100L, ...) {
 
   assertInt(x = maxit, lower = 1, .var.name = "maxit")

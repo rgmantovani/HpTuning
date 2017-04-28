@@ -6,7 +6,8 @@ install.packages(pkgs = c("devtools, RWeka", "e1071", "irace", "checkmate", "pso
 
 devtools::install_github("berndbischl/ParamHelpers", 
   ref = "9d374430701d94639cc78db84f91a0c595927189")
-devtools::install_github("mlr-org/mlr")
+devtools::install_github("mlr-org/mlr", 
+  ref = "ebed05e9db01b928318ef310c08898248e259abc")
 devtools::install_github("mlr-org/mlrMBO", 
   ref = "#98dacf7cff03426cc64264686d9611bb0a99ea83")
 

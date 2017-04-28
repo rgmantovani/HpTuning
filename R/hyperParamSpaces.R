@@ -53,9 +53,35 @@ getRpartSpace = function(...) {
     makeIntegerParam("minsplit", lower = 1, upper = min(7, floor(log2(args$n))), 
       trafo = function(x) 2^x),
     makeIntegerParam("minbucket", lower = 0, upper = min(6, floor(log2(args$n))), 
-      trafo = function(x) 2^x)
+      trafo = function(x) 2^x),
+    makeIntegerParam("maxdepth", lower = 1, upper = 30), 
+    makeIntegerParam("usesurrogate", lower = 0, upper = 2),
+    makeIntegerParam("surrogatestyle", lower = 0, upper = 1)
   )
   return(par.set)  
+}
+
+# -------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
+
+# getRangerSpace = function(...) {
+#   args = list(...)
+#   par.set = makeParamSet(
+#     makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
+#     makeIntegerParam("num.trees", lower = 0, upper = 10, trafo = function(x) 2^x),
+#     makeIntegerParam("min.node.size", lower = 1, upper = 10)
+#   )
+#   return(par.set)
+# }
+
+getRandomForestSpace = function(...) {
+  args = list(...)
+  par.set = makeParamSet(
+    makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
+    makeIntegerParam("ntree", lower = 0, upper = 10, trafo = function(x) 2^x),
+    makeIntegerParam("nodesize", lower = 1, upper = 10)
+  )
+  return(par.set)
 }
 
 # -------------------------------------------------------------------------------------------------
