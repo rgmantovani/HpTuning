@@ -1,8 +1,8 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-myTuneParams = function(learner, task, resampling, measures, par.set, control, show.info = getMlrOption("show.info"), 
-  resample.fun = resample) { 
+myTuneParams = function(learner, task, resampling, measures, par.set, control, 
+  show.info = getMlrOption("show.info"), resample.fun = resample) { 
 
   learner = mlr:::checkLearner(learner)
   assertClass(task, classes = "Task")
@@ -41,7 +41,10 @@ myTuneParams = function(learner, task, resampling, measures, par.set, control, s
     messagef("With control class: %s", cl)
     messagef("Imputation value: %g", control$impute.val)
   }
-  or = sel.func(learner, task, resampling, measures, par.set, control, opt.path, show.info, resample.fun)
+  
+  or = sel.func(learner, task, resampling, measures, par.set, control, opt.path, 
+    show.info, resample.fun)
+  
   if (show.info)
     messagef("[Tune] Result: %s : %s", paramValueToString(par.set, or$x), mlr:::perfsToString(or$y))
   return(or)

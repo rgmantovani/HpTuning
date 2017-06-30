@@ -1,15 +1,13 @@
 Package: HpTuning
-Title: An implementation of several hyper-parameter tuning techniques for ML classification algorithms in general. 
+Title: An implementation of several hyper-parameter tuning techniques for ML classification algorithms in R. 
 Version: 0.0.1
 Authors@R:person("Rafael", "Gomes Mantovani", email = "rgmantovani@gmail.com", role = c("aut", "cre"))
 Description: 'HPTuning' is a program that performs hyper-parameter tuning of different Machine Learning (ML) classification algorithms using: 
   random search (RS), meta-heuristics (GA, PSO and EDA), sequential model-based optimization (SMBO) and an Iterated F-Racing technique (irace).
-Depends: R (>= 3.1.0), mlr (>= 2.9), checkmate, foreign
-Imports: irace, GA, pso, copulaedas, rpart, RWeka, e1071, mlrMBO, randomForest
-Suggests: dplyr, testthat
+Depends: R (>= 3.1.0), mlr (>= 2.9), checkmate, RWeka (>= 0.4), irace, GA, pso, copulaedas, mlrMBO
+Suggests: rpart, e1071, randomForest
 License: LGPL-3
 Encoding: UTF-8
 URL: https://github.com/rgmantovani/HpTuning
-URLnote: https://github.com/rgmantovani/HpTuning
 BugReports: https://github.com/rgmantovani/HpTuning/issues
 LazyData: true
