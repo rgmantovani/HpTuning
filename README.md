@@ -10,8 +10,7 @@
 
 ### Setup
 
-First, download and compile the [DCol](http://dcol.sourceforge.net/) library and place the resultant binary file (dcol) into the ```src``` subdirectory. If the ```src``` folder does not exist, create it, and save the binary file there.
-Secondly, to install the current project, please use the following command inside your R session:
+You can install the current project, please use the following command inside your R session:
 ```R 
 devtools::install_github("rgmantovani/HpTuning")
 ```
@@ -54,10 +53,10 @@ The availabe options (in this current version) for the other runtime parameters 
 To run the project, please, call it by the bash file executing it by the command:
 ```R
 R CMD BATCH --no-save --no-restore '--args' --datafile=<datafile> --algo=<algo> --tuning=<tuning> \
-  --epoch=<epoch> mainHP.R out_"$datafile"_"$algo"_"$tuning"_rep_"$epoch".log &
+  --epoch=<epoch> mainHP.R out_job.log &
 ```
 
-It will start the script saving the status in an output log file. You can follow the execution and errors checking directly this file. 
+It will start the script saving the status in an output log file. You can follow the execution and errors checking directly this file, and also change the name of this log file as you whish.
 
 ### Contact
 
