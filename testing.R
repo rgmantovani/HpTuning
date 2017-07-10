@@ -39,11 +39,21 @@
 
   # args = c("iris", "classif.randomForest", "defaults", 23) # ok
   # args = c("iris", "classif.randomForest", "mbo", 24)      # ok
-  args = c("iris", "classif.randomForest", "random", 20    # ok
+  # args = c("iris", "classif.randomForest", "random", 20)    # ok
   # args = c("iris", "classif.randomForest", "irace", 24)    # ok
   # args = c("iris", "classif.randomForest", "pso", 24)      # ok
   # args = c("iris", "classif.randomForest", "eda", 24)      # ok
   # args = c("iris", "classif.randomForest", "ga", 24)       # ok
+
+  # args = c("20_mfeat-pixel", "classif.J48", "defaults", 24)  # ok
+  # args = c("299_libras_move", "classif.J48", "defaults", 24)  # ok
+  # args = c("338_grub-damage", "classif.J48", "defaults", 24) #ok
+  # args = c("685_visualizing_livestock", "classif.J48", "defaults", 24) #ok
+  # args = c("1100_PopularKids", "classif.J48", "defaults", 24) #ok
+  # args = c("1500_seismic-bumps", "classif.J48", "defaults", 24)#ok
+  # args = c("1519_robot-failures-lp4", "classif.J48", "defaults", 24)
+  # args = c("1520_robot-failures-lp5", "classif.J48", "defaults", 24) #ok
+
 
   datafile = args[[1]]
   algo     = args[[2]]

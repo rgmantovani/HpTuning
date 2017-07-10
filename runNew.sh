@@ -1,15 +1,13 @@
 #!/bin/bash
 
-DIR='data';
-EXT='\.arff';
-DATASETS=`ls ./$DIR/*$EXT | sed -e "s/\.\/$DIR\///g" | sed -e "s/$EXT//g"`
+declare -a arr=("1100_PopularKids" "1500_seismic-bumps" "1519_robot-failures-lp4" "1520_robot-failures-lp5" 
+  "20_mfeat-pixel" "299_libras_move" "338_grub-damage" "685_visualizing_livestock")
 
-for data in $DATASETS
+for data in "${arr[@]}"
 do
-  # echo $data
-  for algo in "classif.J48" # "classif.rpart" "classif.svm"
+  for algo in "classif.rpart"
   do
-    for tuning in "defaults" "random" "mbo" "irace"
+    for tuning in "defaults" "irace"
     do
       for rep in $(seq 1 30);
       do
