@@ -1,21 +1,16 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-convertLogicalToInteger = function(par.set) {
-  
+convertParamsTypes = function(par.set) {
+
   aux = lapply(par.set$pars, function(par) {
     
     if(par$type == "logical") {
       par$type = "integer"
       par$lower = 0
       par$upper = 1
-      if(par$default) {
-        par$default = 1 
-      } else {
-        par$default = 0
-      }
-    }
-    
+      par$default = ifelse(par$default, 1, 0)
+    }    
     return(par)
   })
 
@@ -27,30 +22,26 @@ convertLogicalToInteger = function(par.set) {
 #--------------------------------------------------------------------------------------------------
 
 customizedConverter = function(x, par.set) {
- 
-  # round integers
-  new.x = Map(function(par, v) {
-    if (par$type %in% c("integer", "integervector") & !is.na(v)) {
-      as.integer(round(v))
-    }
-    else { 
-      v 
-    }
-  }, par.set$pars, x)
 
-  new.x$O = as.logical(new.x$O)
-  new.x$R = as.logical(new.x$R)
-  new.x$B = as.logical(new.x$B)
-  new.x$S = as.logical(new.x$S)
-  new.x$A = as.logical(new.x$A)
-  new.x$J = as.logical(new.x$J)
-  if(new.x$R) {
-    new.x$C = NA
-    if(is.na(new.x$N)) { new.x$N = 3 }
-  } else {
-    new.x$N = NA
-    if(is.na(new.x$C)) { new.x$C = 0.25 }
+  new.x = mlr:::convertXNumeric(x, par.set)
+  bool.params = c("O", "R", "B", "S", "A", "J", "stump")
+  for(par in bool.params) {
+    if(!is.null(new.x[[par]])) {
+      new.x[[par]] = as.logical(new.x[[par]])
+    }
   }
+
+  # J48 requirements
+  if(!is.null(new.x[["R"]])) {
+    if(new.x$R) {
+      new.x$C = NA
+      if(is.na(new.x$N)) { new.x$N = 3 }
+    } else {
+      new.x$N = NA
+      if(is.na(new.x$C)) { new.x$C = 0.25 }
+    }
+  }
+
   return(new.x)
 }
 

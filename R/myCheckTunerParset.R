@@ -49,11 +49,11 @@ myCheckTunerParset = function(learner, par.set, measures, control) {
     checkStart()
   }
   if (inherits(control, "TuneControlGA")) {
-    checkParsOk("PSO", c("logical", "numeric", "integer", "numericvector", "integervector"))
+    checkParsOk("GA", c("logical", "numeric", "integer", "numericvector", "integervector"))
     checkStart()
   }
   if (inherits(control, "TuneControlEDA")) {
-    checkParsOk("PSO", c("logical", "numeric", "integer", "numericvector", "integervector"))
+    checkParsOk("EDA", c("logical", "numeric", "integer", "numericvector", "integervector"))
     checkStart()
   }
 

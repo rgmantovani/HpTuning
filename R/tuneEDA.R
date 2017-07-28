@@ -6,13 +6,11 @@ tuneEDA = function(learner, task, resampling, measures, par.set, control, opt.pa
 
   requirePackages("copulaedas", why = "tuneEDA", default.method = "load")
   
-  if(ParamHelpers::hasLogical(par.set = par.set)) { 
-    par.set = convertLogicalToInteger(par.set = par.set)
-    cx = function(x, par.set) { customizedConverter(x, par.set) }
-  } else {
-    cx = function(x, par.set) mlr:::convertXNumeric(x, par.set)
+  par.set = convertParamsTypes(par.set = par.set)
+  cx = function(x, par.set) { 
+    customizedConverter(x = x, par.set = par.set) 
   }
-
+ 
   low = ParamHelpers::getLower(par.set)
   upp = ParamHelpers::getUpper(par.set)
   start = control$start

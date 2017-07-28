@@ -37,8 +37,8 @@ getJ48Space = function(...) {
 
 getSvmSpace = function(...) {
   par.set = makeParamSet(
-    makeNumericParam("cost" , lower = -15, upper = 15, trafo = function(x) 2^x),
-    makeNumericParam("gamma", lower = -15, upper = 15, trafo = function(x) 2^x)
+    makeNumericParam(id = "cost" , lower = -15, upper = 15, trafo = function(x) 2^x),
+    makeNumericParam(id = "gamma", lower = -15, upper = 15, trafo = function(x) 2^x)
   )
   return(par.set)
 }
@@ -49,16 +49,34 @@ getSvmSpace = function(...) {
 getRpartSpace = function(...) {
   args = list(...)
   par.set = makeParamSet(
-    makeIntegerParam("cp", lower = -4, upper = -1, trafo = function(x) 10^x),
+    makeIntegerParam(id = "cp", lower = -4, upper = -1, trafo = function(x) 10^x),
+    makeIntegerParam(id = "minsplit", lower = 1, upper = min(7, floor(log2(args$n))), 
+      trafo = function(x) 2^x),
+    makeIntegerParam(id = "minbucket", lower = 0, upper = min(6, floor(log2(args$n))), 
+      trafo = function(x) 2^x),
+    makeIntegerParam(id = "maxdepth", lower = 1, upper = 30), 
+    makeIntegerParam(id ="usesurrogate", lower = 0, upper = 2),
+    makeIntegerParam(id ="surrogatestyle", lower = 0, upper = 1)
+  )
+  return(par.set)  
+}
+
+# -------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
+
+getCtreeSpace = function(...) {
+  args = list(...)
+  par.set = makeParamSet(
+    makeNumericParam(id = "mincriterion", lower = 0.9, upper = 0.999),
     makeIntegerParam("minsplit", lower = 1, upper = min(7, floor(log2(args$n))), 
       trafo = function(x) 2^x),
     makeIntegerParam("minbucket", lower = 0, upper = min(6, floor(log2(args$n))), 
       trafo = function(x) 2^x),
-    makeIntegerParam("maxdepth", lower = 1, upper = 30), 
-    makeIntegerParam("usesurrogate", lower = 0, upper = 2),
-    makeIntegerParam("surrogatestyle", lower = 0, upper = 1)
-  )
-  return(par.set)  
+    makeLogicalParam("stump", default = FALSE),
+    makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
+    makeIntegerParam("maxdepth", lower = 1, upper = 30)
+  )  
+  return(par.set)
 }
 
 # -------------------------------------------------------------------------------------------------
@@ -67,9 +85,9 @@ getRpartSpace = function(...) {
 getRandomForestSpace = function(...) {
   args = list(...)
   par.set = makeParamSet(
-    makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
-    makeIntegerParam("ntree", lower = 0, upper = 10, trafo = function(x) 2^x),
-    makeIntegerParam("nodesize", lower = 1, upper = 20)
+    makeIntegerParam(id = "mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
+    makeIntegerParam(id = "ntree", lower = 0, upper = 10, trafo = function(x) 2^x),
+    makeIntegerParam(id = "nodesize", lower = 1, upper = 20)
   )
   return(par.set)
 }
