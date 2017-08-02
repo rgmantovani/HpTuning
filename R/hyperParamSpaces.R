@@ -68,13 +68,13 @@ getCtreeSpace = function(...) {
   args = list(...)
   par.set = makeParamSet(
     makeNumericParam(id = "mincriterion", lower = 0.9, upper = 0.999),
-    makeIntegerParam("minsplit", lower = 1, upper = min(7, floor(log2(args$n))), 
+    makeIntegerParam(id = "minsplit", lower = 1, upper = min(7, floor(log2(args$n))), 
       trafo = function(x) 2^x),
-    makeIntegerParam("minbucket", lower = 0, upper = min(6, floor(log2(args$n))), 
+    makeIntegerParam(id = "minbucket", lower = 0, upper = min(6, floor(log2(args$n))), 
       trafo = function(x) 2^x),
-    makeLogicalParam("stump", default = FALSE),
-    makeIntegerParam("mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
-    makeIntegerParam("maxdepth", lower = 1, upper = 30)
+    makeLogicalParam(id = "stump", default = FALSE),
+    makeIntegerParam(id = "mtry", lower = round(args$p ^ 0.1), upper = round(args$p ^ 0.9)),
+    makeIntegerParam(id = "maxdepth", lower = 1, upper = 30)
   )  
   return(par.set)
 }
