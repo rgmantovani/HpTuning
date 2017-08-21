@@ -17,12 +17,10 @@ do
     do
       for rep in $(seq 1 $REPS);
       do
-        echo ${DATASETS[$id]} $algo $tuning $rep out_"${DATASETS[$id]}"_"$algo"_"$tuning"_rep_"$rep".log
-        
-	R CMD BATCH  --no-save --no-restore '--args' --datafile="${DATASETS[$id]}" --algo="$algo " --tuning="$tuning" \
-           --epoch="$rep" mainHP.R out_"${DATASETS[$id]}"_"$algo"_"$tuning"_rep_"$rep".log &
-       
-	#PIDS[$rep]=$!
+        # echo ${DATASETS[$id]} $algo $tuning $rep out_"${DATASETS[$id]}"_"$algo"_"$tuning"_rep_"$rep".log
+        R CMD BATCH  --no-save --no-restore '--args' --datafile="${DATASETS[$id]}" --algo="$algo " --tuning="$tuning" \
+          --epoch="$rep" mainHP.R out_"${DATASETS[$id]}"_"$algo"_"$tuning"_rep_"$rep".log &
+        PIDS[$rep]=$!
       done
       for k in $(seq 1 $REPS);
       do
