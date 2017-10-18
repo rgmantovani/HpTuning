@@ -19,6 +19,14 @@
   # args = c("iris", "classif.ctree", "eda", 24)      # ok
   # args = c("iris", "classif.ctree", "ga", 24)       # ok
 
+  # Note: All works for xGboost
+  # args = c("iris", "classif.xgboost", "defaults",3) 
+  # args = c("iris", "classif.xgboost", "irace", 3)
+  # args = c("iris", "classif.xgboost", "ga", 3)
+  # args = c("iris", "classif.xgboost", "eda", 3)
+  # args = c("iris", "classif.xgboost", "pso", 3)
+  # args = c("iris", "classif.xgboost", "mbo", 3)
+
   # Note: All works for SVMs
   # args = c("iris", "classif.svm", "defaults", 24) # ok
   # args = c("iris", "classif.svm", "random", 24)   # ok 

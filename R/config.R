@@ -5,7 +5,7 @@ mlr::configureMlr(on.learner.error = "warn")
 mlr::configureMlr(show.info = TRUE)
 
 AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart", "classif.randomForest", 
-  "classif.ctree")
+  "classif.ctree", "classif.xgboost")
 AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace", "pso", "ga", "eda")
 
 INNER_FOLDS = 3
