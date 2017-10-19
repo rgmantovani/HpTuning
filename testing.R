@@ -10,16 +10,16 @@
 
   assignInNamespace("checkTunerParset", myCheckTunerParset, ns="mlr", envir=as.environment("package:mlr"))
 
-  # Note: All works for Ctree
+  # Note: All work for Ctree
   # args = c("iris", "classif.ctree", "defaults", 24) # ok
   # args = c("iris", "classif.ctree", "random", 25)   # ok
   # args = c("iris", "classif.ctree", "mbo", 24)      # ok
-  args = c("iris", "classif.ctree", "irace", 5)     # ok
+  # args = c("iris", "classif.ctree", "irace", 5)     # ok
   # args = c("iris", "classif.ctree", "pso", 2)       # ok 
   # args = c("iris", "classif.ctree", "eda", 24)      # ok
   # args = c("iris", "classif.ctree", "ga", 24)       # ok
 
-  # Note: All works for xGboost
+  # Note: All work for xGboost
   # args = c("iris", "classif.xgboost", "defaults",3) 
   # args = c("iris", "classif.xgboost", "irace", 3)
   # args = c("iris", "classif.xgboost", "ga", 3)
@@ -27,7 +27,7 @@
   # args = c("iris", "classif.xgboost", "pso", 3)
   # args = c("iris", "classif.xgboost", "mbo", 3)
 
-  # Note: All works for SVMs
+  # Note: All work for SVMs
   # args = c("iris", "classif.svm", "defaults", 24) # ok
   # args = c("iris", "classif.svm", "random", 24)   # ok 
   # args = c("iris", "classif.svm", "mbo", 24)      # ok 
@@ -36,7 +36,7 @@
   # args = c("iris", "classif.svm", "eda", 24)      # ok
   # args = c("iris", "classif.svm", "ga", 24)       # ok
 
-  # Note: All works for J48
+  # Note: All work for J48
   # args = c("iris", "classif.J48", "defaults", 24) # ok
   # args = c("iris", "classif.J48", "random", 24)   # ok
   # args = c("iris", "classif.J48", "mbo", 24)      # ok
@@ -45,7 +45,7 @@
   # args = c("iris", "classif.J48", "ga", 20)       # ok
   # args = c("iris", "classif.J48", "eda", 20)      # ok
 
-  # Note: All works for rpart
+  # Note: All work for rpart
   # args = c("iris", "classif.rpart", "defaults", 24)# ok
   # args = c("iris", "classif.rpart", "random", 24)  # ok
   # args = c("iris", "classif.rpart", "mbo", 24)     # ok
@@ -54,6 +54,7 @@
   # args = c("iris", "classif.rpart", "eda", 24)     # ok
   # args = c("iris", "classif.rpart", "ga", 24)      # ok
 
+  # Note: All work for randomforest
   # args = c("iris", "classif.randomForest", "defaults", 23) # ok
   # args = c("iris", "classif.randomForest", "mbo", 24)      # ok
   # args = c("iris", "classif.randomForest", "random", 20)   # ok
@@ -61,6 +62,16 @@
   # args = c("iris", "classif.randomForest", "pso", 2)       # ok
   # args = c("iris", "classif.randomForest", "eda", 24)      # ok
   # args = c("iris", "classif.randomForest", "ga", 24)       # ok
+
+  # Note: All works for C5.0
+  # args = c("iris", "classif.C50", "defaults", 24) # ok
+  # args = c("iris", "classif.C50", "random", 24)   # ok
+  # args = c("iris", "classif.C50", "mbo", 24)      # ok
+  # args = c("iris", "classif.C50", "irace", 24)    # ok
+  # args = c("iris", "classif.C50", "pso", 2)       # ok 
+  # args = c("iris", "classif.C50", "ga", 20)       # ok
+  args = c("iris", "classif.C50", "eda", 20)      # ok
+
 
   datafile = args[[1]]
   algo     = args[[2]]
