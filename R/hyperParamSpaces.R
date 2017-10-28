@@ -100,6 +100,7 @@ getXgboostSpace = function(...) {
     makeIntegerParam("nrounds", lower = 0, upper = 10, trafo = function(x) 2^x),
     makeNumericParam("eta", lower = -7, upper = -5, trafo = function(x) 2^x),
     makeIntegerParam("max_depth", lower = 1, upper = 30),
+    makeNumericParam("colsample_bytree", lower = 0.3, upper = 1, default = 0.6),
     makeNumericParam("subsample", lower = 1, upper = 10, trafo = function(x) 0.1*x)
   )
   return(par.set)
