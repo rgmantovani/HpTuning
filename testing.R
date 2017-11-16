@@ -70,8 +70,10 @@
   # args = c("iris", "classif.C50", "irace", 24)    # ok
   # args = c("iris", "classif.C50", "pso", 2)       # ok 
   # args = c("iris", "classif.C50", "ga", 20)       # ok
-  args = c("iris", "classif.C50", "eda", 20)      # ok
+  # args = c("iris", "classif.C50", "eda", 20)      # ok
 
+  # args = c("iris", "classif.C50", "defaults", 20)      # ok
+  args = c("1100_PopularKids", "classif.glmnet", "defaults", 20)      # ok
 
   datafile = args[[1]]
   algo     = args[[2]]
