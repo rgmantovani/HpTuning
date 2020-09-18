@@ -5,22 +5,24 @@ tuneEDA = function(learner, task, resampling, measures, par.set, control, opt.pa
   resample.fun) {
 
   requirePackages("copulaedas", why = "tuneEDA", default.method = "load")
-  
+
   par.set = convertParamsTypes(par.set = par.set)
-  cx = function(x, par.set) { 
-    customizedConverter(x = x, par.set = par.set) 
+  cx = function(x, par.set) {
+    customizedConverter(x = x, par.set = par.set)
   }
- 
+
   low = ParamHelpers::getLower(par.set)
   upp = ParamHelpers::getUpper(par.set)
   start = control$start
 
-  if (is.null(start))
-    start = sampleValue(par.set, start, trafo = FALSE)
+  if (is.null(start)) {
+    start = sampleValue(par = par.set, discrete.names = FALSE, trafo = FALSE)
+  }
   start = mlr:::convertStartToNumeric(start, par.set)
 
+
   ctrl.eda = control$extra.args
- 
+
   maxf = ctrl.eda$pop.size * ctrl.eda$maxit
   if (is.null(control$budget)) {
     control$budget = maxf
@@ -58,13 +60,15 @@ tuneEDA = function(learner, task, resampling, measures, par.set, control, opt.pa
 
   res = copulaedas::edaRun(model, f = tunerFitFunWrapper(learner = learner, task = task,
   	resampling = resampling, measures = measures, par.set = par.set, ctrl = control,
-    opt.path = opt.path, show.info = show.info, resample.fun = resample.fun, 
+    opt.path = opt.path, show.info = show.info, resample.fun = resample.fun,
     convertx = cx, remove.nas = TRUE), lower = low, upper = upp)
 
-  tune.result = mlr:::makeTuneResultFromOptPath(learner, par.set, measures, control, opt.path)
+  tune.result = mlr:::makeTuneResultFromOptPath(learner = learner, par.set = par.set,
+    resampling = resampling, measures = measures, control  = control, opt.path = opt.path)
+
+
   return(tune.result)
 }
 
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
-
