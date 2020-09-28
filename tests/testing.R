@@ -1,26 +1,30 @@
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 
-  devtools::load_all()
- 
+  devtools::load_all(path = "../R")
+
   unlockBinding("tuneParams", as.environment("package:mlr"))
-  assignInNamespace("tuneParams", myTuneParams, ns="mlr", envir=as.environment("package:mlr"))
+
+  assignInNamespace("tuneParams", myTuneParams, ns="mlr",
+    envir=as.environment("package:mlr"))
+
   assign("tuneParams", myTuneParams, as.environment("package:mlr"))
   lockBinding("tuneParams", as.environment("package:mlr"))
 
-  assignInNamespace("checkTunerParset", myCheckTunerParset, ns="mlr", envir=as.environment("package:mlr"))
+  assignInNamespace("checkTunerParset", myCheckTunerParset, ns="mlr",
+    envir=as.environment("package:mlr"))
 
   # Note: All work for Ctree
   # args = c("iris", "classif.ctree", "defaults", 24) # ok
   # args = c("iris", "classif.ctree", "random", 25)   # ok
   # args = c("iris", "classif.ctree", "mbo", 24)      # ok
   # args = c("iris", "classif.ctree", "irace", 5)     # ok
-  # args = c("iris", "classif.ctree", "pso", 2)       # ok 
+  # args = c("iris", "classif.ctree", "pso", 2)       # ok
   # args = c("iris", "classif.ctree", "eda", 24)      # ok
   # args = c("iris", "classif.ctree", "ga", 24)       # ok
 
   # Note: All work for xGboost
-  # args = c("iris", "classif.xgboost", "defaults",3) 
+  # args = c("iris", "classif.xgboost", "defaults",3)
   # args = c("iris", "classif.xgboost", "irace", 3)
   # args = c("iris", "classif.xgboost", "ga", 3)
   # args = c("iris", "classif.xgboost", "eda", 3)
@@ -29,10 +33,10 @@
 
   # Note: All work for SVMs
   # args = c("iris", "classif.svm", "defaults", 24) # ok
-  # args = c("iris", "classif.svm", "random", 24)   # ok 
-  # args = c("iris", "classif.svm", "mbo", 24)      # ok 
+  # args = c("iris", "classif.svm", "random", 24)   # ok
+  # args = c("iris", "classif.svm", "mbo", 24)      # ok
   # args = c("iris", "classif.svm", "irace", 24)    # ok
-  # args = c("iris", "classif.svm", "pso", 2)       # ok
+  # args = c("iris", "classif.svm", "pso", 15)       # ok
   # args = c("iris", "classif.svm", "eda", 24)      # ok
   # args = c("iris", "classif.svm", "ga", 24)       # ok
 
@@ -41,7 +45,7 @@
   # args = c("iris", "classif.J48", "random", 24)   # ok
   # args = c("iris", "classif.J48", "mbo", 24)      # ok
   # args = c("iris", "classif.J48", "irace", 24)    # ok
-  # args = c("iris", "classif.J48", "pso", 2)       # ok 
+  # args = c("iris", "classif.J48", "pso", 2)       # ok
   # args = c("iris", "classif.J48", "ga", 20)       # ok
   # args = c("iris", "classif.J48", "eda", 20)      # ok
 
@@ -68,23 +72,23 @@
   # args = c("iris", "classif.C50", "random", 24)   # ok
   # args = c("iris", "classif.C50", "mbo", 24)      # ok
   # args = c("iris", "classif.C50", "irace", 24)    # ok
-  # args = c("iris", "classif.C50", "pso", 2)       # ok 
+  args = c("iris", "classif.C50", "pso", 2)       # ok
   # args = c("iris", "classif.C50", "ga", 20)       # ok
   # args = c("iris", "classif.C50", "eda", 20)      # ok
 
   # args = c("iris", "classif.C50", "defaults", 20)      # ok
-  args = c("1100_PopularKids", "classif.glmnet", "defaults", 20)      # ok
+  # args = c("1100_PopularKids", "classif.glmnet", "defaults", 20)      # ok
 
   datafile = args[[1]]
   algo     = args[[2]]
-  tuning   = args[[3]] 
+  tuning   = args[[3]]
   rep      = as.integer(args[[4]])
 
   set.seed(rep)
 
   # Checking params values
   assertChoice(x = tuning, choices = AVAILABLE.TUNNERS, .var.name = "tuning")
-  sub.data = gsub(x = list.files(path = "data/"), pattern = ".arff", replacement = "")
+  sub.data = gsub(x = list.files(path = "../data/"), pattern = ".arff", replacement = "")
   assertChoice(x = datafile, choices = sub.data, .var.name = "datafile")
   assertChoice(x = algo, choices = AVAILABLE.LEARNERS, .var.name = "algo")
   assertInt(x = rep, lower = 1, upper = 30, .var.name = "rep")
@@ -94,19 +98,19 @@
   cat(paste0(" - Tuning: \t", tuning, "\n"))
   cat(paste0(" - Repetition: \t", rep, "\n"))
 
-  output.dir = paste0("output/", datafile, "/", algo, "/", tuning, "/rep", rep)
+  output.dir = paste0("../", "output/", datafile, "/", algo, "/", tuning, "/rep", rep)
 
   if(!dir.exists(output.dir)) {
     dir.create(path = output.dir, recursive = TRUE)
     cat(paste0(" - Creating dir: ", output.dir, "\n"))
   }
 
-  if(file.exists(paste0(output.dir, "/perf_", datafile, ".RData"))) {
+  if(file.exists(paste0("../", output.dir, "/perf_", datafile, ".RData"))) {
     warningf("Job already finished!\n")
   } else {
 
     cat(paste0(" @ Loading dataset: ", datafile, "\n"))
-    data = foreign::read.arff(paste0("data/", datafile, ".arff"))
+    data = foreign::read.arff(paste0("../data/", datafile, ".arff"))
 
     task = makeClassifTask(
       id = datafile,
@@ -124,7 +128,7 @@
       new.lrn = learner
     } else {
 
-      par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task), 
+      par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task),
         n = mlr::getTaskSize(task))
 
       BUDGET  = 50
@@ -139,13 +143,14 @@
         eda    = { ctrl = makeTuneControlEDA(pop.size = POP.SIZE, maxit = 2)}
       )
 
-      # New wrapper tuned learner 
+      # New wrapper tuned learner
       new.lrn = makeTuneWrapper(learner = learner, resampling = inner.cv,
-        measure = list(ber, timetrain, timepredict), par.set = par.set, control = ctrl, show.info = TRUE)
+        measure = list(ber, timetrain, timepredict), par.set = par.set, control = ctrl,
+        show.info = TRUE)
     }
 
     # Running: dataset + learner + tuning method
-    res = benchmark(learners = new.lrn, tasks = list(task), resamplings = outer.cv, 
+    res = benchmark(learners = new.lrn, tasks = list(task), resamplings = outer.cv,
       measures = measures, show.info = TRUE, keep.pred = TRUE, models = FALSE)
 
     # Saving results
