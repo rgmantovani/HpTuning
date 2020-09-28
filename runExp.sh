@@ -4,15 +4,15 @@
 
 DIR='data';
 EXT='\.arff';
-DATASETS=`ls ./$DIR/*$EXT | sed -e "s/\.\/$DIR\///g" | sed -e "s/$EXT//g"`  
+DATASETS=`ls ./$DIR/*$EXT | sed -e "s/\.\/$DIR\///g" | sed -e "s/$EXT//g"`
 
 for data in "${arr[@]}"
 do
-  for algo in "classif.J48" # "classif.rpart" "classif.svm"
+  for algo in "classif.rpart" # "classif.rpart" "classif.svm"
   do
-    for tuning in "defaults" "random" "mbo" #"irace"
+    for tuning in "pso" # "defaults" "random" "mbo""irace"
     do
-      for rep in $(seq 1 30);
+      for rep in $(seq 1 10); #30);
       do
         qsub runJob.sh $data $algo $tuning $rep
       done

@@ -4,7 +4,7 @@
 mlr::configureMlr(on.learner.error = "warn")
 mlr::configureMlr(show.info = TRUE)
 
-AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart", "classif.randomForest", 
+AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart", "classif.randomForest",
   "classif.ctree", "classif.xgboost", "classif.C50", "classif.glmnet")
 AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace", "pso", "ga", "eda")
 
