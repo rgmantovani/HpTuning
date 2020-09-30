@@ -7,12 +7,12 @@
 * R >= 3.5.0
 * [mlr](https://cran.r-project.org/web/packages/mlr/index.html) >= 2.15.0
 * [ParamHelpers](https://cran.r-project.org/web/packages/ParamHelpers/index.html) >= 1.13
-* [devtools](https://cran.r-project.org/web/packages/devtools/index.html) >= 2.3.1 
+* [devtools](https://cran.r-project.org/web/packages/devtools/index.html) >= 2.3.1
 
 ### Setup
 
 You can install the current project, please use the following command inside your R session:
-```R 
+```R
 devtools::install_github("rgmantovani/HpTuning")
 ```
 
@@ -26,7 +26,7 @@ Each execution (or single job) will be saved in a different folder and organized
 * the hyper-parameters returned by the optimization process; and
 * the optimization path with all the candidate settings evaluated during search.
 
-### Available Options 
+### Available Options
 
 There is no restriction regarding the **datafile** option: the code will run with the datasets provided by you and located at the ```data``` sub-folder. **Obs**: On every datafile, the target attribute must be the last one and labeled as **Class**.
 
@@ -40,25 +40,27 @@ The availabe options (in this current version) for the other runtime parameters 
   * "classif.ctree": Conditional Inference Trees, implemented by the [*party*](https://cran.r-project.org/web/packages/party/index.html) package;
   * "classif.xgboost": eXtreme Gradiante Boosting, implemented by the [*xgboost*](https://cran.r-project.org/web/packages/xgboost/index.html) package;
   * "classif.C50": C5.0 Decision Trees, implemented by the [*C50*](https://cran.r-project.org/web/packages/C50/index.html) package;
-  * "classif.glment": Generalized Linear Models, implemented by the [*glmnet*](https://cran.r-project.org/web/packages/glmnet/index.html) package.
- 
+  * "classif.glment": Generalized Linear Models, implemented by the [*glmnet*](https://cran.r-project.org/web/packages/glmnet/index.html) package;
+  * "classif.kknn": Weighted k-Nearest Neighbors, implemented by the [*kknn*](https://cran.r-project.org/web/packages/kknn/index.html) package;
+  * "classif.naiveBayes": Naive Bayes, implemented by the [*e1071*](https://cran.r-project.org/web/packages/e1071/index.html) package.
+
 * **tuning** - hyperparameter tuning technique:
-  * "defaults" - Default hyperparameter values (from respecitive R implementations); 
-  * "random" - Random Search (RS) \[02\], the *mlr* implementation; 
+  * "defaults" - Default hyperparameter values (from respecitive R implementations);
+  * "random" - Random Search (RS) \[02\], the *mlr* implementation;
   * "mbo" - Sequential Model-Based Optimization (SMBO) \[03\], implemented by the [*mlrMBO*](https://cran.r-project.org/web/packages/mlrMBO/index.html) package;  
-  * "irace" - Iterative Racing Algorithm \[04\], implemented by the [*irace*](https://cran.r-project.org/web/packages/irace/index.html) package; 
-  * "pso" - Particle Swarm Optimization \[05\], implemented by the [*pso*](https://cran.r-project.org/web/packages/pso/index.html) package; 
+  * "irace" - Iterative Racing Algorithm \[04\], implemented by the [*irace*](https://cran.r-project.org/web/packages/irace/index.html) package;
+  * "pso" - Particle Swarm Optimization \[05\], implemented by the [*pso*](https://cran.r-project.org/web/packages/pso/index.html) package;
   * "ga" - Genetic Algorithm \[06\], implemented by the [*GA*](https://cran.r-project.org/web/packages/GA/index.html) package;
   * "eda" - Estimation of Distribution Algorithms (EDA) \[07\], implemented by the [*copulaedas*](https://cran.r-project.org/web/packages/copulaedas/index.html) package.
 
-* **epoch** - id of the repetition being executed. It controls the seed for reproducibility. We restric the range between 1 and 30. 
+* **epoch** - id of the repetition being executed. It controls the seed for reproducibility. We restric the range between 1 and 30.
 
 ### Running the code
 
 To run the project, please, call it by the bash file executing it by the command:
 ```R
 R CMD BATCH --no-save --no-restore '--args' --datafile=<datafile> --algo=<algo> --tuning=<tuning> \
-  --epoch=<epoch> mainHP.R out_job.log &
+  --epoch=<epoch> mainHP.R out_job.log &  
 ```
 
 It will start the script saving the status in an output log file. You can follow the execution and errors checking directly this file, and also change the name of this log file as you whish.
