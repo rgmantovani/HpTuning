@@ -3,6 +3,9 @@
 
   devtools::load_all(path = "../R")
 
+  # it is not being loaded (still do not know why)
+  library(BBmisc)
+
   unlockBinding("tuneParams", as.environment("package:mlr"))
 
   assignInNamespace("tuneParams", myTuneParams, ns="mlr",
@@ -34,7 +37,7 @@
   # Note: All work for SVMs
   # args = c("iris", "classif.svm", "defaults", 24) # ok
   # args = c("iris", "classif.svm", "random", 24)   # ok
-  # args = c("iris", "classif.svm", "mbo", 24)      # ok
+  args = c("iris", "classif.svm", "mbo", 24)      # ok
   # args = c("iris", "classif.svm", "irace", 24)    # ok
   # args = c("iris", "classif.svm", "pso", 15)       # ok
   # args = c("iris", "classif.svm", "eda", 24)      # ok
@@ -86,7 +89,7 @@
   # args = c("iris", "classif.kknn", "eda", 20)      # not (check eda configurations)
 
   # Note: just defaults works for Naive Bayes (there are no HPs)
-  args = c("iris", "classif.naiveBayes", "defaults", 24) # ok
+  # args = c("iris", "classif.naiveBayes", "defaults", 24) # ok
   # args = c("iris", "classif.naiveBayes", "random", 24)   # ok
 
 

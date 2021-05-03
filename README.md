@@ -18,10 +18,10 @@ devtools::install_github("rgmantovani/HpTuning")
 
 ### How it works?
 
-Basically, given a 4-tuple of execution parameters **\<datafile, algo, tuning, epoch\>**, it will tune the **\<algo\>** on **\<datafile\>** using the **\<tuning\>** technique. The **\<epoch\>** parameter specifies the seed of the repetition being executed. Since most of the tuning techniques covered here are stochastics, when comparing them they need to run several times with different seeds.
+Basically, given a 4-tuple of execution parameters **\<datafile, algo, tuning, epoch\>**, it will tune the **\<algo\>** on **\<datafile\>** using the **\<tuning\>** technique. The **\<epoch\>** parameter specifies the seed of the repetition being executed. Since most of the tuning techniques covered here are stochastic, when comparing them they need to run several times with different seeds.
 
 Each execution (or single job) will be saved in a different folder and organized by its input parameters. The program will store at the disk:
-* the final peformances reached by the tuned models;
+* the final performance values reached by the tuned models;
 * the predictions reached by the tuned models;
 * the hyper-parameters returned by the optimization process; and
 * the optimization path with all the candidate settings evaluated during search.
@@ -30,7 +30,7 @@ Each execution (or single job) will be saved in a different folder and organized
 
 There is no restriction regarding the **datafile** option: the code will run with the datasets provided by you and located at the ```data``` sub-folder. **Obs**: On every datafile, the target attribute must be the last one and labeled as **Class**.
 
-The availabe options (in this current version) for the other runtime parameters are:
+The available options (in this current version) for the other runtime parameters are:
 
 * **algo** - ML algorithm to be tuned:
   * "classif.J48": J48 Decision Tree algorithm implemented by the [*RWeka*](https://cran.r-project.org/web/packages/RWeka/index.html) package;
@@ -53,7 +53,7 @@ The availabe options (in this current version) for the other runtime parameters 
   * "ga" - Genetic Algorithm \[06\], implemented by the [*GA*](https://cran.r-project.org/web/packages/GA/index.html) package;
   * "eda" - Estimation of Distribution Algorithms (EDA) \[07\], implemented by the [*copulaedas*](https://cran.r-project.org/web/packages/copulaedas/index.html) package.
 
-* **epoch** - id of the repetition being executed. It controls the seed for reproducibility. We restric the range between 1 and 30.
+* **epoch** - id of the repetition being executed. It controls the seed for reproducibility. We restrict the range between 1 and 30.
 
 ### Running the code
 
@@ -63,7 +63,7 @@ R CMD BATCH --no-save --no-restore '--args' --datafile=<datafile> --algo=<algo> 
   --epoch=<epoch> mainHP.R out_job.log &  
 ```
 
-It will start the script saving the status in an output log file. You can follow the execution and errors checking directly this file, and also change the name of this log file as you whish.
+It will start the script saving the status in an output log file. You can follow the execution and errors checking directly this file, and also change the name of this log file as you wish.
 
 ### Contact
 

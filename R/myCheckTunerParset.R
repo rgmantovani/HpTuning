@@ -6,6 +6,8 @@
 # - algo can handle dependencies
 
 myCheckTunerParset = function(learner, par.set, measures, control) {
+
+  # cl = BBmisc::getClass1(control)
   cl = getClass1(control)
 
   if (getParamNr(par.set) == 0L)
@@ -59,7 +61,7 @@ myCheckTunerParset = function(learner, par.set, measures, control) {
 
   # check requires / dependent params
   if (hasRequires(par.set) && cl %nin% c("TuneControlRandom", "TuneControlGrid",
-      "TuneControlDesign", "TuneControlIrace", "TuneControlMBO", 
+      "TuneControlDesign", "TuneControlIrace", "TuneControlMBO",
       "TuneControlPSO", "TuneControlGA", "TuneControlEDA", "TuneMultiCritControlRandom"))
     stopf("Tuning algorithm for '%s' cannot handle dependent parameters!", cl)
 

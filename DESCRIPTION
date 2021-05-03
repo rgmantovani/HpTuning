@@ -4,8 +4,29 @@ Version: 0.0.1
 Authors@R:person("Rafael", "Gomes Mantovani", email = "rgmantovani@gmail.com", role = c("aut", "cre"))
 Description: 'HPTuning' is a program that performs hyper-parameter tuning of different Machine Learning (ML) classification algorithms using:
   random search (RS), meta-heuristics (GA, PSO and EDA), sequential model-based optimization (SMBO) and an Iterated F-Racing technique (irace).
-Depends: R (>= 3.5.0), mlr (>= 2.15), ParamHelpers(>= 1.12), checkmate, RWeka (>= 0.4), irace, GA, pso, copulaedas, mlrMBO (>= 1.1.2)
-Suggests: rpart, e1071, randomForest, party, xgboost, e1071, C50, glmnet, kknn
+Imports:
+    BBmisc,
+Depends:
+  R (>= 3.5.0),
+  mlr (>= 2.15),
+  ParamHelpers(>= 1.12),
+  checkmate,
+  RWeka (>= 0.4),
+  irace,
+  GA,
+  pso,
+  copulaedas,
+  mlrMBO (>= 1.1.2)
+Suggests:
+  rpart,
+  e1071,
+  randomForest,
+  party,
+  xgboost,
+  e1071,
+  C50,
+  glmnet,
+  kknn
 License: LGPL-3
 Encoding: UTF-8
 URL: https://github.com/rgmantovani/HpTuning

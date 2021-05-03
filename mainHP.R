@@ -5,6 +5,12 @@ mainHP = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
 
   devtools::load_all()
 
+  # -----------------------------------------------
+  # FIX ME: it is not being loaded (still do not know why)
+  # so, forcing to lead BBmisc dependency
+  library(BBmisc)
+  # -----------------------------------------------
+
   # Using our functions instead of the mlr ones
   # -  until they are not merged to the mlr package
   unlockBinding("tuneParams", as.environment("package:mlr"))
@@ -28,7 +34,7 @@ mainHP = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
   cat(paste0(" - Repetition: \t", rep, "\n"))
 
   runTuning(datafile = datafile, algo = algo, tuning = tuning, rep = rep)
-  
+
   cat("Done!")
 }
 
@@ -37,7 +43,7 @@ mainHP = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
 #--------------------------------------------------------------------------------------------------
 
 # parse params and call main
-options(echo = TRUE) 
+options(echo = TRUE)
 args = commandArgs(trailingOnly = TRUE)
 
 # Parse arguments (we expect the form --arg=value)
@@ -46,7 +52,7 @@ argsDF = as.data.frame(do.call("rbind", parseArgs(args)))
 argsL = as.list(as.character(argsDF$V2))
 
 # Calling execution with the arguments
-mainHP(datafile = argsL[[1]], algo = argsL[[2]], tuning = argsL[[3]], 
+mainHP(datafile = argsL[[1]], algo = argsL[[2]], tuning = argsL[[3]],
   rep = as.integer(argsL[[4]]))
 
 #--------------------------------------------------------------------------------------------------
