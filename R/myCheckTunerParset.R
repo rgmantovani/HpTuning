@@ -7,7 +7,6 @@
 
 myCheckTunerParset = function(learner, par.set, measures, control) {
 
-  # cl = BBmisc::getClass1(control)
   cl = getClass1(control)
 
   if (getParamNr(par.set) == 0L)

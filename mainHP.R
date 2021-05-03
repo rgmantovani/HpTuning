@@ -7,7 +7,7 @@ mainHP = function(datafile = NULL, algo = NULL, tuning = NULL, rep = NULL) {
 
   # -----------------------------------------------
   # FIX ME: it is not being loaded (still do not know why)
-  # so, forcing to lead BBmisc dependency
+  # so, forcing to load BBmisc dependency
   library(BBmisc)
   # -----------------------------------------------
 
