@@ -27,3 +27,20 @@ getLearner = function(algo) {
 
 # -------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------
+
+getRpartSkLearnDefaults = function() {
+
+  lrn = makeImputeWrapper(
+    # minsplit and minbucket are respectively 2 and 1
+    learner = mlr::makeLearner("classif.rpart", minsplit = 2, minbucket = 1),
+    classes = list(numeric = imputeMedian(), factor = imputeMode(), integer = imputeMedian()),
+    dummy.classes = c("numeric", "factor", "integer")
+  )
+
+  new.lrn = makeRemoveConstantFeaturesWrapper(learner = lrn)
+  return(new.lrn)
+}
+
+
+# -------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------

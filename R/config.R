@@ -7,7 +7,7 @@ mlr::configureMlr(show.info = TRUE)
 AVAILABLE.LEARNERS = c("classif.svm", "classif.J48", "classif.rpart", "classif.randomForest",
   "classif.ctree", "classif.xgboost", "classif.C50", "classif.glmnet", "classif.kknn",
   "classif.naiveBayes")
-AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace", "pso", "ga", "eda")
+AVAILABLE.TUNNERS = c("random", "defaults", "mbo", "irace", "pso", "ga", "eda", "defaults-skl")
 
 INNER_FOLDS = 3
 OUTER_FOLDS = 10

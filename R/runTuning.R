@@ -33,6 +33,9 @@ runTuning = function(datafile, algo, tuning, rep) {
 
     if(tuning == "defaults") {
       new.lrn = learner
+    # DAMI - experiments
+    } else if(tuning == "defaults-skl" & algo == "classif.rpart") {
+      new.lrn = getRpartSkLearnDefaults()
     } else {
 
       par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task), 

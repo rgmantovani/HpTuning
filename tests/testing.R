@@ -37,7 +37,7 @@
   # Note: All work for SVMs
   # args = c("iris", "classif.svm", "defaults", 24) # ok
   # args = c("iris", "classif.svm", "random", 24)   # ok
-  args = c("iris", "classif.svm", "mbo", 24)      # ok
+  # args = c("iris", "classif.svm", "mbo", 24)      # ok
   # args = c("iris", "classif.svm", "irace", 24)    # ok
   # args = c("iris", "classif.svm", "pso", 15)       # ok
   # args = c("iris", "classif.svm", "eda", 24)      # ok
@@ -54,6 +54,8 @@
 
   # Note: All work for rpart
   # args = c("iris", "classif.rpart", "defaults", 24)# ok
+  args = c("iris", "classif.rpart", "defaults-skl", 24)# ok
+  
   # args = c("iris", "classif.rpart", "random", 24)  # ok
   # args = c("iris", "classif.rpart", "mbo", 24)     # ok
   # args = c("iris", "classif.rpart", "irace", 24)   # ok
@@ -93,7 +95,6 @@
   # args = c("iris", "classif.naiveBayes", "random", 24)   # ok
 
 
-
   datafile = args[[1]]
   algo     = args[[2]]
   tuning   = args[[3]]
@@ -127,7 +128,7 @@
     cat(paste0(" @ Loading dataset: ", datafile, "\n"))
     data = foreign::read.arff(paste0("../data/", datafile, ".arff"))
 
-    task = makeClassifTask(
+    task = mlr::makeClassifTask(
       id = datafile,
       data = data,
       target = "Class",
@@ -141,6 +142,8 @@
 
     if(tuning == "defaults") {
       new.lrn = learner
+    } else if(tuning == "defaults-skl" & algo == "classif.rpart") {
+      new.lrn = getRpartSkLearnDefaults()
     } else {
 
       par.set = getHyperSpace(learner = learner, p = mlr::getTaskNFeats(task),
